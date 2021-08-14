@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css')}}">
+  <title>T.E.A.M.S Landing Page</title>
+</head>
+<body>
+  <section>
+    <div class="circle"></div>
+    <header>
+      <a href="#" ><img src="{{url_for('static',filename ='images/GS_Academy.jpg')}}"class="logo" width="100" height="50" alt="Teams_logo"></a>
+    </header>
+    <div class="content">
+      <div class="textBox">
+        <h2>A revolutionary way of training in football</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Deleniti sequi dolore molestiae rem quo. 
+          Qui, ea. 
+          Cupiditate dolore, quae, maiores minus natus adipisci nam ea nihil officiis cum perspiciatis animi.</p>
+          <a href="#">Login</a>
+      </div>
+          <div class="imgBox">
+            <img src="{{url_for('static',filename ='images/player1.jpeg')}}" class="player" alt="">
+          </div>
+    </div>
+    <ul class="thumb">
+      <li><img src="{{url_for('static',filename ='images/player2.jpeg')}}" onclick="imgSlider('player2.jpeg');changeCircleColor('#017143')" ></li>
+      <li><img src="{{url_for('static',filename ='images/player5.jpeg')}}" onclick="imgSlider('player3.jpeg');changeCircleColor('#017143')" ></li>
+      <li><img src="{{url_for('static',filename ='images/player6.jpeg')}}" onclick="imgSlider('player4.jpeg');changeCircleColor('#017143')" ></li>
+    </ul>
+    <ul class="sci">
+       <li><a href="#"><img src="{{url_for('static',filename ='images/facebook.png')}}"></a></li>
+       <li><a href="#"><img src="{{url_for('static',filename ='images/instagram.png')}}" ></a></li>
+       <li><a href="#"><img src="{{url_for('static',filename ='images/twitter.png')}}" ></a></li>
+    </ul>
+ </section>
+ <script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+</body>
+</html>
