@@ -11,25 +11,36 @@
   <section>
     <div class="circle"></div>
     <header>
-      <a href="#" ><img src="{{url_for('static',filename ='images/GS_Academy.jpg')}}"class="logo" width="100" height="50" alt="Teams_logo"></a>
+      <a href="#" ><img src="{{url_for('static',filename ='images/GS_Academy.jpg')}}"class="logo" alt="Teams_logo"></a>
+      <a href="#" class="menu" >
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      </ul>
+      <ul class="hide-for-mobile">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Product</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a class="login" href="#">Login</a></li>
+      </ul>
     </header>
     <div class="content">
       <div class="textBox">
         <h2>A revolutionary way of training in football</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Deleniti sequi dolore molestiae rem quo. 
-          Qui, ea. 
-          Cupiditate dolore, quae, maiores minus natus adipisci nam ea nihil officiis cum perspiciatis animi.</p>
-          <a href="#">Login</a>
+        <p>Our product insures that you are able to train yourr players efficiently with schedules.
+          Trainng plans are available to the coaches and the players can track their progress with generated reports. </p>
+          <a href="#">Learn More</a>
       </div>
           <div class="imgBox">
             <img src="{{url_for('static',filename ='images/player1.jpeg')}}" class="player" alt="">
           </div>
     </div>
     <ul class="thumb">
-      <li><img src="{{url_for('static',filename ='images/player2.jpeg')}}" onclick="imgSlider('player2.jpeg');changeCircleColor('#017143')" ></li>
-      <li><img src="{{url_for('static',filename ='images/player5.jpeg')}}" onclick="imgSlider('player3.jpeg');changeCircleColor('#017143')" ></li>
-      <li><img src="{{url_for('static',filename ='images/player6.jpeg')}}" onclick="imgSlider('player4.jpeg');changeCircleColor('#017143')" ></li>
+      <li><img id = '2' src="{{url_for('static',filename ='images/player1.jpeg')}}" ></li>
+      <li><img id = '3' src="{{url_for('static',filename ='images/player5.jpeg')}}" ></li>
+      <li><img id = '4' src="{{url_for('static',filename ='images/player6.jpeg')}}" ></li>
     </ul>
     <ul class="sci">
        <li><a href="#"><img src="{{url_for('static',filename ='images/facebook.png')}}"></a></li>

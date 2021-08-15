@@ -3,53 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!---insert linking syntax here-->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/login_styles.css')}}">
     <title>TEAMS</title>
 </head>
 <body>
     <header>
         <div class="mylogo">
-            <img src="{{url_for('static',filename = 'images/Teams_logo.jpg' )}}" width="50" height="50" alt="teams' logo">
-
-        </div>
-        <div>
-            <form class="myform" action="/login" method="POST">
-                <label for="email">Email</label>
-                <input type="text" name="email" placeholder="Your email.."><br>
-                <label for="password">Password</label>
-                <input type="text" name="password" placeholder="Your password.."><br>
-                <input type="submit" value="Login">
-
-
-            
-            
-            </form>
+            <img src="{{url_for('static',filename = 'images/Gs_Academy.jpg' )}}" width="50" height="50" alt="teams' logo">
         </div>
     </header>
+    <div>
+        <form class="myform" action="/login" method="POST">
+            <label for="email">Email</label>
+            <input type="text" name="email" placeholder="Your email.."><br>
+            <label for="password">Password</label>
+            <input type="text" name="password" placeholder="Your password.."><br>
+            <input type="submit" value="Login">
 
+        </form>
+    </div>
 
 </body>
-
-
-
-</head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
