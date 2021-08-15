@@ -2,26 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/login_styles.css')}}">
-    <title>TEAMS</title>
+    <title>Login Page</title>
 </head>
 <body>
-    <header>
-        <div class="mylogo">
-            <img src="{{url_for('static',filename = 'images/Gs_Academy.jpg' )}}" width="50" height="50" alt="teams' logo">
+   <section>
+       <div class="imgBox">
+           <img src="{{ url_for('static', filename = 'images/player7.jpg')}}" alt="">
+       </div>
+       <div class="contentBox">
+        <div class="formBox">
+            <h2>Login</h2>
+            <form action= "/login" method="POST">
+                <div class="inputBox">
+                    <span>Email</span>
+                    <input type="text" name="email">
+                </div>
+                <div class="inputBox">
+                    <span>Password</span>
+                    <input type="password" name="password">
+                </div>
+                <div class="remember">
+                    <label><input type="checkbox" name=""> Remember me</label>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Sign In">
+                </div>
+                <div class="inputBox">
+                    <p>Don't have an account?<a href="#">Sign up</a></p>
+                </div>
+            </form>
+            <h3>Login with social media</h3>
+            <ul class="sci">
+            <li><a href="#"><img src="{{url_for('static',filename ='images/facebook.png')}}"></a></li>
+            <li><a href="#"><img src="{{url_for('static',filename ='images/instagram.png')}}" ></a></li>
+            <li><a href="#"><img src="{{url_for('static',filename ='images/twitter.png')}}" ></a></li>
+            </ul>
         </div>
-    </header>
-    <div>
-        <form class="myform" action="/login" method="POST">
-            <label for="email">Email</label>
-            <input type="text" name="email" placeholder="Your email.."><br>
-            <label for="password">Password</label>
-            <input type="text" name="password" placeholder="Your password.."><br>
-            <input type="submit" value="Login">
-
-        </form>
-    </div>
-
+       </div>      
+   </section> 
 </body>
 </html>

@@ -4,7 +4,7 @@ document.getElementById('2').onclick = function changeContent() {
    for (var i = 0; i < elems.length; i+= 1) {
     elems[i].src = "static/images/player1.jpeg";
     const circle = document.querySelector('.circle');
-    circle.style.backgroundColor ="green";
+    circle.style.backgroundColor ="#90EE90";
 }
 }
 document.getElementById('3').onclick = function changeContent() {
@@ -13,7 +13,7 @@ document.getElementById('3').onclick = function changeContent() {
    for (var i = 0; i < elems.length; i+= 1) {
     elems[i].src = "static/images/player5.jpeg";
     const circle = document.querySelector('.circle');
-    circle.style.backgroundColor ="#6699cc";
+    circle.style.backgroundColor ="	#98FB98";
 }
 }
 document.getElementById('4').onclick = function changeContent() {
@@ -22,7 +22,7 @@ document.getElementById('4').onclick = function changeContent() {
    for (var i = 0; i < elems.length; i+= 1) {
     elems[i].src = "static/images/player6.jpeg";
     const circle = document.querySelector('.circle');
-    circle.style.backgroundColor ="pink";
+    circle.style.backgroundColor ="#00FA9A";
 }
 }
 
