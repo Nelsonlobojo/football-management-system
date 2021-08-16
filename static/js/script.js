@@ -26,7 +26,7 @@ document.getElementById('4').onclick = function changeContent() {
 }
 }
 
-const hamburger = document.querySelector('#hamburger');
+/*const hamburger = document.querySelector('#hamburger');
 const header = document.querySelector('header')
 const overlay = document.querySelector('.overlay');
 hamburger.addEventListener('click', function(){
@@ -42,5 +42,5 @@ hamburger.addEventListener('click', function(){
         overlay.classList.remove('fade-out');
     }
 
-});
+});*/
 

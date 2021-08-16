@@ -20,9 +20,9 @@ class User(db.Model):
         return '<User %r>'% self.id
 
 @app.route('/')
-def index():
+def landing():
     return render_template("landingpage.html")
-
+    
 @app.route('/login', methods=['POST', 'GET'])
 def login():
 
