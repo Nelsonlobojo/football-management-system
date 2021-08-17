@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css')}}">
+  <title>Teams</title>
+</head>
+<body>
+  <section>
+    <div class="circle"></div>
+    <header>
+      <div class="overlay"></div>
+      <a href="#" ><img src="{{url_for('static',filename ='images/GS_Academy.jpg')}}"class="logo" alt="Teams_logo"></a>
+      <a href="#" id="hamburger" class="hammenu" >
+          <span></span>
+          <span></span>
+          <span></span>
+      </a>
+      </ul>
+      <ul class="hide-for-mobile">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Product</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a class="login" href="login">Login</a></li>
+      </ul>
+    </header>
+    <div class="content">
+      <div class="textBox">
+        <h2>A revolutionary way of training in football</h2>
+        <p>Our product insures that you are able to train yourr players efficiently with schedules.
+          Trainng plans are available to the coaches and the players can track their progress with generated reports. </p>
+          <a href="#">Learn More</a>
+      </div>
+          <div class="imgBox">
+            <img src="{{url_for('static',filename ='images/player1.jpeg')}}" class="player" alt="">
+          </div>
+    </div>
+    <ul class="thumb">
+      <li><img id = '2' src="{{url_for('static',filename ='images/player1.jpeg')}}" ></li>
+      <li><img id = '3' src="{{url_for('static',filename ='images/player5.jpeg')}}" ></li>
+      <li><img id = '4' src="{{url_for('static',filename ='images/player6.jpeg')}}" ></li>
+    </ul>
+    <ul class="sci">
+       <li><a href="#"><img src="{{url_for('static',filename ='images/facebook.png')}}"></a></li>
+       <li><a href="#"><img src="{{url_for('static',filename ='images/instagram.png')}}" ></a></li>
+       <li><a href="#"><img src="{{url_for('static',filename ='images/twitter.png')}}" ></a></li>
+    </ul>
+ </section>
+ <script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+</body>
+</html>

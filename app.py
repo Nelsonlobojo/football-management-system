@@ -23,9 +23,9 @@ mysql = MySQL(app)
 
 
 @app.route('/')
-def index():
-    return render_template("index.html")
-
+def landing():
+    return render_template("landingpage.html")
+    
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     #Output message if something goes wrong...
