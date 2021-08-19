@@ -44,4 +44,12 @@ body {
 }
 .wrapper .sidebar ul li:hover a {
     color: #fff;
+    cursor: pointer;
+}
+.wrapper .content {
+    width: 100%;
+    margin-left: 200px;
+}
+.wrapper .sidebar .link {
+    color: black;
 }

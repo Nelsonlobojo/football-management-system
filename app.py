@@ -13,7 +13,7 @@ app.secret_key = 'bacon'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'pythonlogin'
+app.config['MYSQL_DB'] = 'teams'
 
 # Intialize MySQL
 mysql = MySQL(app)
@@ -34,7 +34,7 @@ def login():
         password = request.form['password']
                 # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE email = %s AND password = %s', (email, password,))
+        cursor.execute('SELECT * FROM Users WHERE email = %s AND password = %s', (email, password,))
         # Fetch one record and return result
         account = cursor.fetchone()
             # If account exists in accounts table in out database
@@ -44,7 +44,7 @@ def login():
             session['id'] = account['id']
             session['email'] = account['email']
             # Redirect to home page
-            return render_template('layout.html')
+            return redirect(url_for('profile'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
@@ -70,15 +70,20 @@ def profile():
         # We need all the account info for the user so we can display it on the profile page
 
        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-       cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'],))
+       cursor.execute('SELECT * FROM Users WHERE id = %s', (session['id'],))
        account = cursor.fetchone()
 
         # Show the profile page with account info
 
-       return render_template('layout.html', account=account)
+       return render_template('profile.html', account=account)
 # User is not loggedin redirect to login page
 
     return redirect(url_for('login'))
+
+
+@app.route('/login/unit')
+def unit():
+    return render_template("units.html")
 
 if __name__ == '__main__':
     app.run(debug = True)

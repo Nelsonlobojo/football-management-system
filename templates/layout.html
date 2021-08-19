@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/layout_styles.css')}}">
-    <title>Teams</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     
@@ -13,19 +13,22 @@
     <div class="sidebar">
         <h2>TEAMS</h2>
         <ul>
-            <li><a href="#"></a>Profile</li>
-            <li><a href="#"></a>Units</li>
-            <li><a href="#"></a>Athlete Profile</li>
-            <li><a href="#"></a>Calendar</li>
-            <li><a href="#"></a>Athlete Reports</li>
-            <li><a href="#"></a>Personnel</li>
-            <li><a href="#"></a>Session</li>
-            <li><a href="#"></a>Drills</li>
-            <li><a href="#"></a>Collection</li>
-            <li><a href="#"></a>Logout</li>
+            <li><a class="link" href="profile">Profile</a></li>
+            <li><a class="link" href="unit">Units</a></li>
+            <li><a class="link" href=""></a>Athlete Profile</li>
+            <li><a class="link" href=""></a>Calendar</li>
+            <li><a class="link" href=""></a>Athlete Reports</li>
+            <li><a class="link" href=""></a>Personnel</li>
+            <li><a class="link" href=""></a>Session</li>
+            <li><a class="link" href=""></a>Drills</li>
+            <li><a class="link" href=""></a>Collection</li>
+            <li><a class="link" href=""></a>Logout</li>
         </ul>
     </div>
-</div>
-
+    <div class="content">
+        {% block content %}{% endblock content %} 
+    </div>
+    
+</div> 
 </body>
 </html>
