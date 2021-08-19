@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
@@ -25,7 +25,7 @@ def landing():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     #Output message if something goes wrong...
-    msg= 'Cannot find page'
+    msg= ''
 
         # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
@@ -48,19 +48,19 @@ def login():
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
+    # Show the login form with message (if any)
     return render_template('login.html', msg=msg)
-
         
 # logout page
-#@app.route('/login/logout')
-#def logout():
+@app.route('/login/logout')
+def logout():
     # Remove session data, this will log the user out
-  # session.pop('loggedin', None)
-   #session.pop('id', None)
-   #session.pop('username', None)
+   session.pop('loggedin', None)
+   session.pop('id', None)
+   session.pop('username', None)
    
    # Redirect to login page
-   #return redirect(url_for('login'))
+   return redirect(url_for('login'))
 #this will be the home page, only accessible for loggedin users
 
 @app.route('/login/profile')

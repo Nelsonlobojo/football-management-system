@@ -39,8 +39,6 @@ header{
     right: 0px;
     bottom: 0px;
     background-image: linear-gradient(green,transparent);
-    
-
 }
 header.logo{
     position: relative;
@@ -182,6 +180,7 @@ header ul li a {
     clip-path: circle(600px at right 800px);
 
 }
+
 
 @media (max-width:1023px){
     .hide-for-mobile {

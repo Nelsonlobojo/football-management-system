@@ -23,6 +23,18 @@
                 <div class="inputBox">
                     <span>Password</span>
                     <input type="password" name="password">
+                {% if msg %}
+                <label>
+                    <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+                    <div class="alert">
+                        <div class="error">
+                            <span class="alertClose">X</span>
+                            <span class="alertText"> {{ msg }}
+                                <br class="clear"/></span>
+                        </div>
+                    </div>
+                  </label>
+                {% endif %}
                 </div>
                 <div class="remember">
                     <label><input type="checkbox" name=""> Remember me</label>

@@ -13,6 +13,14 @@ body {
     background: #f3f5f9;
 }
 
+section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 90vh;
+}
 .wrapper {
     display: flex;
     position: relative;
@@ -52,4 +60,60 @@ body {
 }
 .wrapper .sidebar .link {
     color: black;
+}
+section .profileBox {
+    width: 50%;
+    height: 100%;  
+}
+section .profileBox .imgBox img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+section .profileBox .imgBox button{
+    margin:20px;
+    display: block;
+}
+
+section .profileBox .formBox {
+    width: 50%;
+}
+
+section .profileBox .formBox .inputBox {
+    margin-bottom: 20px;
+}
+section .profileBox .formBox .inputBox span {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: inline-block;
+    color:#607d8b;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+section .profileBox .formBox .inputBox input {
+    width: 100%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: transparent;
+    border-radius: 30px;
+}
+section .profileBox .formBox .inputBox input[type="submit"]{
+    background: green;
+    color: white;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+section .profileBox .formBox .inputBox input[type="submit"]:hover{
+    background: #98FB98;
 }
