@@ -93,6 +93,11 @@ def addpersonnel():
         session['phone_number']=request.form['phone_number']
 
     return render_template('addpersonnel.html')
+@app.route('/login/addpersonnel/coach')
+def list_coach():
+    return render_template('coach.html')
+    
+    
 #Unit page
 @app.route('/login/unit')
 def unit():
