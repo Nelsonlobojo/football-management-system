@@ -7,25 +7,42 @@
         <!--reminder to link the files-->
         <link rel="stylesheet" href="{{ url_for('static', filename = '')}}">
         <title>Add Personnel</title>
-     </head>
+    </head>
      <body>
          <section>
-             <div>
+            <div class="contentBox">
+                <div class="formBox">
+                    <h2>Addpersonnel</h2>
+                    <form action= "/addpersonnel" method="POST">
+                        <div class="inputBox">
+                            <span>Username</span>
+                            <input type="text" name="username">
+                        </div>
+                        <div class="inputBox">
+                            <span>Password</span>
+                            <input type="password" name="password">
+                            <div class="inputBox">
+                                <span>Name</span>
+                                <input type="text" name="name">
+                            </div>
+                            <div class="inputBox">
+                                <span>Phone Number</span>
+                                <input type="text" name="phone number">
+                                <button class="button">Add Coach</button>
+                    </form>
+                </div>
+            </div>    
 
 
 
-                
-             </div>
 
 
 
 
 
 
-
-
-
-     </body>
+         </section>
+     </body>    
 
 
 
