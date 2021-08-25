@@ -206,9 +206,9 @@ section .contentBox .formBox .sci li img {
   }
 
   .alert .error {
-    background-color: #FEE;
+    background-color: limegreen;
     border: 1px solid #EDD;
-    color:limegreen;
+    color:black;
   }
 
 
