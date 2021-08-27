@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session,flash
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import re
 
 app = Flask(__name__)
 
@@ -83,16 +82,24 @@ def profile():
 #Add personnel via utilization of session objects
 @app.route('/login/addpersonnel', methods=['GET', 'POST'])
 def addpersonnel():
-    if request.method == 'POST':
-        #Print the form data to the console
-        for key, value in request.form.items():
-            print(f'{key}: {value}')
-        #Save the form data to the session object
-        session['coach_id']=request.form['coach_id']
-        session['coach_name']=request.form['coach_name']
-        session['phone_number']=request.form['phone_number']
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            playerdetails = request.form
+            coach_name = playerdetails['name']
+            coach_number = playerdetails['phone_number']
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO Coach(coach_name,phone_number) VALUES(%s,%s)",(coach_name,coach_number))
+            mysql.connection.commit()
+            cur.close
+            return 'success'
+        return render_template('personnel.html')
 
-    return render_template('addpersonnel.html')
+    return redirect(url_for('login'))
+
+        
+
+    
+
 @app.route('/addpersonnel/coach')
 def list_coach():
     return render_template('coach.html')

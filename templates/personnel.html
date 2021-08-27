@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+{% block title %}Personnel{% endblock %}
+{% block content %}
+<div class="personnel">
+    <div class="split left">
+        <h1>Coach</h1>
+        <div class="coach">
+            <form action= "/login/addpersonnel" method="POST">
+                <div class="inputBox">
+                    <span>Name</span><br>
+                    <input type="text" name="name">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Phone Number</span><br>
+                    <input type="text" name="phone_number"><br>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Add Coach">
+                </div>
+             </form>
+        </div>
+    </div>
+    <div class="split right">
+        <h1>Player</h1>
+        <div class="coach">
+            <form action= "/login/addpersonnel" method="POST">
+                <div class="inputBox">
+                    <span>Name</span><br>
+                    <input type="text" name="athlete_name">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Phone Number</span><br>
+                    <input type="text" name="athlete_phone_number">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Date of Birth</span><br>
+                    <input type="date" name="date_birth">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Position</span><br>
+                    <input type="text" name="position">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Preferred Foot</span><br>
+                    <input type="text" name="pref_foot"><br>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Add Player">
+                </div>    
+             </form>
+        </div>
+    </div>
+</div>
+{% endblock content %} 
