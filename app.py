@@ -80,10 +80,28 @@ def profile():
 
     return redirect(url_for('login'))
 
+#Add personnel via utilization of session objects
+@app.route('/login/addpersonnel', methods=['GET', 'POST'])
+def addpersonnel():
+    if request.method == 'POST':
+        #Print the form data to the console
+        for key, value in request.form.items():
+            print(f'{key}: {value}')
+        #Save the form data to the session object
+        session['coach_id']=request.form['coach_id']
+        session['coach_name']=request.form['coach_name']
+        session['phone_number']=request.form['phone_number']
 
+    return render_template('addpersonnel.html')
+@app.route('/addpersonnel/coach')
+def list_coach():
+    return render_template('coach.html')
+    
+        
+#Unit page
 @app.route('/login/unit')
 def unit():
-    return render_template("units.html")
+  return render_template("units.html")
 
 if __name__ == '__main__':
     app.run(debug = True)
