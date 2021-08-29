@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% block title %}Drills{% endblock %}
+{% block content %}
+<h2>Drills</h2>
+    <form action= "/login/drills" method="POST">
+        <div class="inputBox">
+             <span>Drill Name</span>
+             <input type="text" name="name">
+        </div>
+        <div class="inputBox">
+            <span>Category</span>
+            <!--Add relevant Js syntax -->
+            <input type="text" id="demo" name="combobox"/>
+            <select name="optionlist" onChange="combo(this, 'demo')">
+                <option>Category 1</option>
+                <option>Category 2</option>
+                <option>Category 3</option>
+            </select>
+        </div>
+        <div class="inputBox">
+            <input type="submit" value="Modify Drill">
+        </div>
+        <div class="inputBox">
+            <input type="submit" value="Save Drill">
+        </div>
+        <textarea rows="5" cols="30" id="description" name="description" minlength="10" maxlength="1000">
+            Your description goes here..
+        </textarea>
+        <textarea rows="5" cols="30" id="requirements" name="requirements" minlength="10" maxlength="1000">
+            Your requirements go here..
+        </textarea>
+        <div class="imgBox">
+            <!--add image source-->
+            <img src="{{ url_for('static', filename = 'images/Drills.jpg')}}" alt="">
+            <button type="button">Add Image</button>
+        </div>
+        <video width="320" height="240" controls>
+            <source src="https://www.youtube.com/watch?v=KyBk7prElm0" type=video/mp4>
+        </video>
+        <div class="inputBox">
+            <input type="submit" value="Add Video">
+        </div>
+    </form>
+
+{% endblock content %} 

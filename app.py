@@ -129,9 +129,27 @@ def unit():
 @app.route('/login/drills', methods=['GET', 'POST'])
 def drills():
     if 'loggedin' in session:
-        if request.method == 'POST':          
+        if request.method == 'POST':
+            drilldetails = request.form
+            drill_name = drilldetails['name']
+            drill_number = drilldetails['id']
+            drill_category = drilldetails['category']
+            drill_category_number = drilldetails['id']
+            drill_description = drilldetails['description']
+            drill_requirement = drilldetails['requirement']
+            drill_image = drilldetails['image']
+            drill_video = drilldetails['video']
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO drill(drill_name,drill_id,category,description,requirements,image,video,category_id) VALUES(%s,%s)",(drill_name,drill_number,drill_category,drill_category_number,drill_description,drill_requirement,drill_image,drill_video))
+            mysql.connection.commit()
+            cur.close
+            return 'success'
+        return render_template('drills.html')
+    return redirect(url_for('login'))
+
+  
+                      
 
    
-
 if __name__ == '__main__':
     app.run(debug = True)
