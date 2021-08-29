@@ -1,4 +1,47 @@
-{% extends "layout.html" %}
+{% extends "index.html" %}
+{% block title %}Units{% endblock %}
 {% block content %}
-    <h1>This is the Units Page</h1>
+<h2>Units</h2>
+            <form action= "/login/unit" method="POST">
+                <div class="inputBox">
+                    <span>Unit Name</span>
+                    <input type="text" name="name">
+                </div>
+                <div class="inputBox">
+                    <span>Unit</span>
+                    <!--Add relevant Js syntax -->
+                    <input type="text" id="demo" name="combobox"/>
+                    <select name="optionlist" onChange="combo(this, 'demo')">
+                        <option>Unit 1</option>
+                        <option>Unit 2</option>
+                        <option>Unit 3</option>
+                        <option>Unit 4</option>
+                        <option>Unit 5</option>
+                    </select>
+                </div>
+                <div class="inputBox">
+                    <span>Athletes</span>
+                    <!--Add relevant Js syntax -->
+                    <input type="text" id="demo" name="combobox"/>
+                    <select name="optionlist" onChange="combo(this, 'demo')">
+                        <option>Athlete 1</option>
+                        <option>Athlete 2</option>
+                        <option>Athlete 3</option>
+                        <option>Athlete 4</option>
+                        <option>Athlete 5</option>
+                    </select>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Add Athlete">
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Remove Athlete">
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Create Unit">
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Modify Unit">
+                </div>
+            </form>
 {% endblock content %} 
