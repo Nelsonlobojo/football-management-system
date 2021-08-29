@@ -1,4 +1,45 @@
-{% extends "layout.html" %}
+{% extends "index.html" %}
 {% block content %}
-    <h1>This is the Units Page</h1>
+<div class="unit">
+    <div class="units split left">
+        <h1>Coach</h1>
+        <div class="unit-name">
+            <form action= "" method="POST">
+                <div class="inputBox">
+                    <span>Unit Name</span><br>
+                    <input type="text" name="unit_name">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Unit ID</span><br>
+                    <input type="text" name="unit_number"><br>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Create Unit">
+                </div>
+             </form>
+        </div>
+    </div>
+    <div class=" units split right">
+        <h1>Coach</h1>
+        <div class="unit-name">
+            <form action= "" method="POST">
+                <div class="inputBox">
+                    <span>Unit Name</span><br>
+                    <input type="text" name="unit_name">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Unit ID</span><br>
+                    <input type="text" name="unit_number"><br>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Create Unit">
+                </div>
+             </form>
+        </div>
+    </div>
+ </div>
 {% endblock content %} 

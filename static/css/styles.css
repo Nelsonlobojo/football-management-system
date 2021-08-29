@@ -29,7 +29,9 @@ section {
     justify-content: center;
     align-items: center;
     width:100%;
-    height: 90vh;
+    height: 637px;
+    background: url('/static/images/profile.jpg') center center no-repeat;
+    background-size: cover;
 }
 .wrapper {
     display: flex;
@@ -71,20 +73,27 @@ section {
 .wrapper .sidebar .link {
     color: black;
 }
+
 section .profileBox {
+    left: 20%;
+    top: 40%;
     width: 50%;
-    height: 100%;  
+    height: 637px;
 }
 section .profileBox .imgBox img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border-radius: 50%;
     display: block;
+    left: 20%;
+    top: 20%;
 }
 section .profileBox .imgBox button{
     margin:20px;
     display: block;
+    left: 20%;
+    top: 30%;
 }
 
 section .profileBox .formBox {
@@ -98,10 +107,11 @@ section .profileBox .formBox .inputBox span {
     font-size: 16px;
     margin-bottom: 5px;
     display: inline-block;
-    color:#607d8b;
+    color: white;
     font-weight: 300;
     font-size: 16px;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 section .profileBox .formBox .inputBox input {
     width: 100%;
@@ -112,7 +122,7 @@ section .profileBox .formBox .inputBox input {
     font-size: 16px;
     letter-spacing: 1px;
     color: #607d8b;
-    background: transparent;
+    background: white;
     border-radius: 30px;
 }
 section .profileBox .formBox .inputBox input[type="submit"]{
@@ -160,19 +170,19 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     overflow-y: hidden;
 }
 
- .split {
+ .personnel .split {
     position: absolute;
     width: 50%;
     height: 637px;
     overflow: hidden;
 }
 
-.split.left {
+.personnel .split.left {
     left: 0;
     background: url('/static/images/coach.jpg') center center no-repeat;
     background-size: cover;
 }
-.split.right {
+.personnel .split.right {
     right: 0;
     background: url('/static/images/player.jpg') center center no-repeat;
     background-size: cover;
@@ -192,6 +202,78 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 
 }
 .coach .inputBox input[type="submit"] {
+    background: green;
+    color: white;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Styles for the unit page */
+.unit .split h1 {
+    font-size: 4rem;
+    color: #fff;
+    position: absolute;
+    left: 30%;
+    top: 10%;
+    white-space: nowrap;
+}
+
+.unit .unit-name {
+    display: block;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    height: 300px;
+    width: 500px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+   
+}
+.unit {
+    position: relative;
+    width: 100%;
+    height: 637px;
+    background-color: var(--container-bg-color);
+    overflow-y: hidden;
+    background: url('/static/images/teams.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+ .unit .split {
+    position: absolute;
+    width: 50%;
+    height: 637px;
+    overflow: hidden;
+    
+}
+
+.units.split.left {
+    left: 0;
+}
+
+.units.split.right {
+    right: 0;
+    
+}
+
+.unit-name .inputBox input{
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+
+}
+.unit-name .inputBox input[type="submit"] {
     background: green;
     color: white;
     outline: none;
