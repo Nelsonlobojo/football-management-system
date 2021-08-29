@@ -108,6 +108,7 @@ def list_coach():
 #Unit page
 @app.route('/login/unit', methods=['GET', 'POST'])
 def unit():
+   
      if 'loggedin' in session:
         if request.method == 'POST':
             unitdetails = request.form
@@ -116,13 +117,21 @@ def unit():
             athlete_choice = unitdetails['athlete']
             coach_name = unitdetails['name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Unit(unit_id,unit_name,athlete_name,coach_name) VALUES(%s,%s)",(unit_number,unit_name,athlete_choice,coach_name))
+            cur.execute("INSERT INTO unit(unit_id,unit_name,athlete_name,coach_name) VALUES(%s,%s)",(unit_number,unit_name,athlete_choice,coach_name))
             mysql.connection.commit()
             cur.close
             return 'success'
         return render_template('units.html')
 
      return redirect(url_for('login'))
+
+#Drills page
+@app.route('/login/drills', methods=['GET', 'POST'])
+def drills():
+    if 'loggedin' in session:
+        if request.method == 'POST':          
+
+   
 
 if __name__ == '__main__':
     app.run(debug = True)
