@@ -106,9 +106,23 @@ def list_coach():
     
         
 #Unit page
-@app.route('/login/unit')
+@app.route('/login/unit', methods=['GET', 'POST'])
 def unit():
-  return render_template("units.html")
+     if 'loggedin' in session:
+        if request.method == 'POST':
+            unitdetails = request.form
+            unit_name = unitdetails['name']
+            unit_number = unitdetails['id']
+            athlete_choice = unitdetails['athlete']
+            coach_name = unitdetails['name']
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO Unit(unit_id,unit_name,athlete_name,coach_name) VALUES(%s,%s)",(unit_number,unit_name,athlete_choice,coach_name))
+            mysql.connection.commit()
+            cur.close
+            return 'success'
+        return render_template('units.html')
+
+     return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug = True)
