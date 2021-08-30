@@ -211,11 +211,11 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 }
 
 /* Styles for the unit page */
-.unit .split h1 {
+.unit h1 {
     font-size: 4rem;
     color: #fff;
     position: absolute;
-    left: 30%;
+    left: 40%;
     top: 10%;
     white-space: nowrap;
 }
@@ -242,6 +242,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     background: url('/static/images/teams.jpg') center center no-repeat;
     background-size: cover;
 }
+
 
  .unit .split {
     position: absolute;
@@ -273,6 +274,27 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     border-radius: 30px;
 
 }
+.unit-name .select {
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+
+}
+.unit-name .inputBox p {
+    color: red;
+}
+.unit-name.select option{
+    background: white;
+}
+
+
 .unit-name .inputBox input[type="submit"] {
     background: green;
     color: white;
