@@ -147,6 +147,30 @@ def drills():
         return render_template('drills.html')
     return redirect(url_for('login'))
 
+#Session page
+@app.route('/login/session', methods=['GET', 'POST'])
+def session():
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            sessiondetails = request.form
+            session_number = sessiondetails['id']
+            session_name = sessiondetails['name']
+            session_coach_number = sessiondetails['id']
+            session_coach_name = sessiondetails['name']
+            session_duration = sessiondetails['duration']
+            session_drill_number = sessiondetails['id']
+            session_drill_name = sessiondetails['name']
+            session_unit_number = sessiondetails['id']
+            session_unit_name = sessiondetails['name']
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO session(session_id,session_name,coach_id,coach_name,duration,drill_id,drill_name,unit_id,unit_name) VALUES(%s,%s)",(session_number,session_name,session_coach_number,session_coach_name,session_duration,session_drill_number,session_drill_name,session_unit_number,session_unit_name))
+            mysql.connection.commit()
+            cur.close
+            return 'success'
+        return render_template('session.html')
+    return redirect(url_for('login'))
+
+
   
                       
 
