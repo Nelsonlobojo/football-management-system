@@ -117,7 +117,7 @@ def unit():
             athlete_choice = unitdetails['athlete']
             coach_name = unitdetails['name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO unit(unit_id,unit_name,athlete_name,coach_name) VALUES(%s,%s)",(unit_number,unit_name,athlete_choice,coach_name))
+            cur.execute("INSERT INTO Unit(unit_id,unit_name,athlete_name,coach_name) VALUES(%s,%s)",(unit_number,unit_name,athlete_choice,coach_name))
             mysql.connection.commit()
             cur.close
             return 'success'
@@ -149,7 +149,7 @@ def drills():
 
 #Session page
 @app.route('/login/session', methods=['GET', 'POST'])
-def session():
+def addsession():
     if 'loggedin' in session:
         if request.method == 'POST':
             sessiondetails = request.form
@@ -163,12 +163,14 @@ def session():
             session_unit_number = sessiondetails['id']
             session_unit_name = sessiondetails['name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO session(session_id,session_name,coach_id,coach_name,duration,drill_id,drill_name,unit_id,unit_name) VALUES(%s,%s)",(session_number,session_name,session_coach_number,session_coach_name,session_duration,session_drill_number,session_drill_name,session_unit_number,session_unit_name))
+            cur.execute("INSERT INTO Session(session_id,session_name,coach_id,coach_name,duration,drill_id,drill_name,unit_id,unit_name) VALUES(%s,%s)",(session_number,session_name,session_coach_number,session_coach_name,session_duration,session_drill_number,session_drill_name,session_unit_number,session_unit_name))
             mysql.connection.commit()
             cur.close
             return 'success'
         return render_template('session.html')
     return redirect(url_for('login'))
+
+#Session Window
 
 
   

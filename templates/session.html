@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block title %}Session{% endblock %}
+{% block content %}
+<h2>Session</h2>
+<form action= "/login/session" method="POST">
+    <div class="inputBox">
+        <span>Session Name</span>
+        <input type="text" name="name">
+    </div>
+    <div class="inputBox">
+        <input type="submit" value="Add Units">
+    </div>
+    <div class="inputBox">
+        <input type="submit" value="Add Drills">
+    </div>
+    <div class="inputBox">
+        <input type="submit" value="Modify Session">
+    </div>
+    <div class="inputBox">
+        <span>Select Session</span>
+        <!--Add relevant Js syntax -->
+        <input type="text" id="demo" name="combobox"/>
+        <select name="optionlist" onChange="combo(this, 'demo')">
+            <option>Session 1</option>
+            <option>Session 2</option>
+            <option>Session 3</option>
+        
+        </select>
+    </div>
+    <div class="inputBox">
+        <input type="submit" value="Share">
+    </div>
+</form>
+{% endblock content %} 
