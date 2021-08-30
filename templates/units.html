@@ -1,47 +1,60 @@
 {% extends "index.html" %}
 {% block title %}Units{% endblock %}
 {% block content %}
-<h2>Units</h2>
+<div class="unit">
+    <h1>Unit</h1>
+    <div class="units split left">
+        <div class="unit-name">
             <form action= "/login/unit" method="POST">
                 <div class="inputBox">
-                    <span>Unit Name</span>
-                    <input type="text" name="name">
+                    <span>Unit Name</span><br>
+                    <input type="text" name="unit_name">
                 </div>
+                <br>
                 <div class="inputBox">
-                    <span>Unit</span>
-                    <!--Add relevant Js syntax -->
-                    <input type="text" id="demo" name="combobox"/>
-                    <select name="optionlist" onChange="combo(this, 'demo')">
-                        <option>Unit 1</option>
-                        <option>Unit 2</option>
-                        <option>Unit 3</option>
-                        <option>Unit 4</option>
-                        <option>Unit 5</option>
-                    </select>
+                    <span>Unit Number</span><br>
+                    <input type="number" name="id"><br>
                 </div>
+                <br>
                 <div class="inputBox">
-                    <span>Athletes</span>
-                    <!--Add relevant Js syntax -->
-                    <input type="text" id="demo" name="combobox"/>
-                    <select name="optionlist" onChange="combo(this, 'demo')">
-                        <option>Athlete 1</option>
-                        <option>Athlete 2</option>
-                        <option>Athlete 3</option>
-                        <option>Athlete 4</option>
-                        <option>Athlete 5</option>
-                    </select>
+                    <span>Choose Coach</span><br>
+                    <SELECT name="coach_name" class="select">
+                        {% for c in coachList %}
+                            <OPTION value={{c[0]}}>{{c[1]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
                 </div>
-                <div class="inputBox">
-                    <input type="submit" value="Add Athlete">
-                </div>
-                <div class="inputBox">
-                    <input type="submit" value="Remove Athlete">
-                </div>
+                <br>
+                <br>
                 <div class="inputBox">
                     <input type="submit" value="Create Unit">
                 </div>
+             </form>
+        </div>
+    </div>
+    <div class="units split right">
+        <div class="unit-name">
+            <form action= "/login/unit" method="POST">
                 <div class="inputBox">
-                    <input type="submit" value="Modify Unit">
+                    <span>Phone Number</span><br>
+                    <input type="text" name="athlete_phone_number">
                 </div>
-            </form>
+                <br>
+                <div class="inputBox">
+                    <span>Choose Athletes</span><br>
+                    <SELECT name="athlete" class="select">
+                        {% for a in athleteList %}
+                            <OPTION value={{a[0]}}>{{a[1]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Add Player">
+                </div>    
+             </form>
+        </div>
+    </div>
+</div>
+    
 {% endblock content %} 
