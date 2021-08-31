@@ -13,18 +13,17 @@
                 <br>
                 <div class="inputBox">
                     <span>Unit Number</span><br>
-                    <input type="number" name="id"><br>
+                    <input type="text" name="id" placeholder="Wriiten as UO1"><br>
                 </div>
                 <br>
                 <div class="inputBox">
                     <span>Choose Coach</span><br>
                     <SELECT name="coach_name" class="select">
                         {% for c in coachList %}
-                            <OPTION value={{c[0]}}>{{c[1]}}</OPTION>
+                            <OPTION value={{c[0]}}>{{c[2]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>
-                <br>
                 <br>
                 <div class="inputBox">
                     <input type="submit" value="Create Unit">
@@ -34,23 +33,27 @@
     </div>
     <div class="units split right">
         <div class="unit-name">
-            <form action= "/login/unit" method="POST">
+            <form action= "/login/unit/player" method="POST">
                 <div class="inputBox">
-                    <span>Phone Number</span><br>
-                    <input type="text" name="athlete_phone_number">
-                </div>
-                <br>
-                <div class="inputBox">
-                    <span>Choose Athletes</span><br>
-                    <SELECT name="athlete" class="select">
-                        {% for a in athleteList %}
-                            <OPTION value={{a[0]}}>{{a[1]}}</OPTION>
+                    <span>Choose Units</span><br>
+                    <SELECT name="unit" class="select">
+                        {% for u in unitList %}
+                            <OPTION value={{u[0]}}>{{u[2]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>
                 <br>
                 <div class="inputBox">
-                    <input type="submit" value="Add Player">
+                    <span>Add Athletes</span><br>
+                    <SELECT name="athlete" class="select">
+                        {% for a in athleteList %}
+                            <OPTION value={{a[0]}}>{{a[5]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Add Players">
                 </div>    
              </form>
         </div>

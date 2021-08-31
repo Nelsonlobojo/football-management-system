@@ -1,3 +1,6 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 document.getElementById('2').onclick = function changeContent() {
 
     var elems = document.getElementsByClassName("player");
@@ -43,4 +46,19 @@ hamburger.addEventListener('click', function(){
     }
 
 });*/
+
+
+$(document).ready(function(){
+    // File type validation
+       $("#fileinput").change(function(){
+           var match= ["image/jpeg","image/png","image/jpg","image/gif"];
+           var file = this.file;
+           var imagefile = file.type;
+           if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]) || (imagefile==match[3]))){
+                 alert('Please select a valid image file (JPEG/JPG/PNG/GIF).');
+                 $("#fileinput").val('');
+                 return false;
+             }
+       });
+   });
 

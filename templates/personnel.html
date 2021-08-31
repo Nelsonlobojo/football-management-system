@@ -7,6 +7,11 @@
         <div class="coach">
             <form action= "/login/addpersonnel" method="POST">
                 <div class="inputBox">
+                    <span>Coach ID</span><br>
+                    <input type="text" name="coachid" placeholder="Written as C01">
+                </div>
+                <br>
+                <div class="inputBox">
                     <span>Name</span><br>
                     <input type="text" name="name">
                 </div>
@@ -20,21 +25,17 @@
                     <input type="submit" value="Add Coach">
                 </div>
              </form>
-             <div class="flash">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                  {% for message in messages %}
-                      {{message}}
-                  {% endfor %}
-                {% endif %}
-              {% endwith %}
-             </div>
         </div>
     </div>
     <div class="split right">
         <h1>Player</h1>
         <div class="coach">
             <form action= "/login/addpersonnel/player" method="POST">
+                <div class="inputBox">
+                    <span>Athlete ID</span><br>
+                    <input type="text" name="athleteid" placeholder="Written like AO1">
+                </div>
+                <br>
                 <div class="inputBox">
                     <span>Name</span><br>
                     <input type="text" name="athlete_name">
@@ -64,14 +65,6 @@
                     <input type="submit" value="Add Player">
                 </div>    
              </form>
-             <div class="flash">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                  {% for message in messages %}
-                      {{message}}
-                  {% endfor %}
-                {% endif %}
-              {% endwith %}
              </div>
         </div>
     </div>

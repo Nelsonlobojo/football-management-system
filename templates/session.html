@@ -1,34 +1,77 @@
 {% extends "index.html" %}
 {% block title %}Session{% endblock %}
 {% block content %}
-<h2>Session</h2>
-<form action= "/login/session" method="POST">
-    <div class="inputBox">
-        <span>Session Name</span>
-        <input type="text" name="name">
+<div class="session">
+    <div class="sessions split left">
+        <h1>Session</h1>
+        <div class="session-name">
+            <form action= "/login/session" method="POST">
+                <div class="inputBox">
+                    <span>Session ID</span><br>
+                    <input type="text" name="sessionid" placeholder="Written as S01">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Session Name</span><br>
+                    <input type="text" name="sessionname">
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Session Duration</span><br>
+                    <input type="number" name="duration" placeholder="In minutes"><br>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Choose Coach</span><br>
+                    <SELECT name="coach_name" class="select">
+                        {% for c in coachList %}
+                            <OPTION value={{c[0]}}>{{c[2]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Create Session">
+                </div>
+             </form>
+        </div>
     </div>
-    <div class="inputBox">
-        <input type="submit" value="Add Units">
-    </div>
-    <div class="inputBox">
-        <input type="submit" value="Add Drills">
-    </div>
-    <div class="inputBox">
-        <input type="submit" value="Modify Session">
-    </div>
-    <div class="inputBox">
-        <span>Select Session</span>
-        <!--Add relevant Js syntax -->
-        <input type="text" id="demo" name="combobox"/>
-        <select name="optionlist" onChange="combo(this, 'demo')">
-            <option>Session 1</option>
-            <option>Session 2</option>
-            <option>Session 3</option>
+    <div class="sessions split right">
+        <div class="session-name">
+            <form action= "/login/session" method="POST">
+                <div class="inputBox">
+                    <span>Choose Session</span><br>
+                    <SELECT name="session" class="select">
+                        {% for s in sessionList %}
+                            <OPTION value={{s[0]}}>{{s[3]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Add Units</span><br>
+                    <SELECT name="unit" class="select">
+                        {% for u in unitList %}
+                            <OPTION value={{u[0]}}>{{u[2]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <span>Add Drills</span><br>
+                    <SELECT name="drill" class="select">
+                        {% for d in drillList %}
+                            <OPTION value={{d[0]}}>{{u[2]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="submit" value="Add">
+                </div>
+             </form>
         
-        </select>
+        </div>
     </div>
-    <div class="inputBox">
-        <input type="submit" value="Share">
-    </div>
-</form>
+</div>
 {% endblock content %} 
