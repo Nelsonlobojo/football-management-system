@@ -90,6 +90,7 @@ section .profileBox .imgBox img {
     display: block;
     left: 20%;
     top: 20%;
+    border: solid green;
 }
 section .profileBox .imgBox button{
     margin:20px;
@@ -143,8 +144,8 @@ section .profileBox .formBox .inputBox.upload input[type="submit"]{
     border: 1px solid #607d8b;
     font-size: 16px;
     letter-spacing: 1px;
-    color: #607d8b;
-    background: black;
+    color: white;
+    background: green;
 }
 
 section .profileBox .formBox .inputBox input[type="submit"]:hover{
@@ -394,10 +395,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     border-radius: 30px;
 
 }
-.session-name .inputBox .checkbox {
-    color: black;
-    font-weight: bold;
-}
+
 .session-name.select option{
     background: white;
 }
@@ -411,3 +409,119 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     font-weight: 500;
     cursor: pointer;
 }
+
+/* Styling Drills */
+
+.drill h1 {
+    font-size: 2rem;
+    color: #fff;
+    position: absolute;
+    left: 40%;
+    top: 0%;
+    white-space: nowrap;
+}
+
+.drill .drill-name {
+    display: block;
+    position: absolute;
+    left: 20%;
+    top: 7%;
+    height: 300px;
+    width: 500px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.drill {
+    position: relative;
+    width: 100%;
+    height: 637px;
+    background-color: var(--container-bg-color);
+    /*overflow-y: hidden;*/
+    background: url('/static/images/clock.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.drill .split {
+    position: absolute;
+    height: 700px;
+    /*overflow: hidden;*/
+    
+}
+
+.drills.split.left {
+    left: 0;
+    width: 30%;
+}
+
+.drills.split.right {
+    right: 0;
+    width: 70%;
+}
+.drills.split.right.media {
+    right: 0;
+    width: 35%;
+}
+.drill-name .inputBox input{
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+
+}
+.drill-name .select {
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+
+}
+
+.drill-name.select option{
+    background: white;
+}
+
+
+.drill-name .inputBox input[type="submit"] {
+    background: green;
+    color: white;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.drill-name .inputBox img{
+    height: 200px;
+    width: 300px;
+}
+
+
+.drill-name .inputBox a{
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: white;
+    background: green;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+

@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
  
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
  
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -56,10 +56,10 @@ def login():
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
-            session['id'] = account['id']
+            session['id'] = account['user_id']
             session['email'] = account['email']
             # Redirect to home page
-            return redirect(url_for('profile'))
+            return redirect(url_for('addpersonnel'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
@@ -78,48 +78,27 @@ def logout():
    return redirect(url_for('login'))
 #this will be the home page, only accessible for loggedin users
 
-
-@app.route('/login/profile')
+@app.route('/login/profile' ,methods=['POST','GET'])
 def profile():
     # Check if user is loggedin
     if 'loggedin' in session:
         # We need all the account info for the user so we can display it on the profile page
-
-       cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-       cursor.execute('SELECT * FROM Users WHERE id = %s', (session['id'],))
-       account = cursor.fetchone()
-
-        # Show the profile page with account info
-
-       return render_template('profile.html', account=account)
-# User is not loggedin redirect to login page
-
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Users WHERE user_id = %s', (session['id'],))
+        account = cursor.fetchone()
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            email    = request.form['email']
+            coachname = request.form['coach-name']
+            phonenumber = request.form['phone-number']
+            cur = mysql.connection.cursor()
+            cur.execute("Update Users SET phone_number=%s,coach_name=%s,username=%s,email=%s,password=%s WHERE user_id=%s",(phonenumber,coachname,username,email,password,session['id']))
+            mysql.connection.commit()
+            cur.close
+            return redirect(url_for('profile'))
+        return render_template('profile.html',account=account)
     return redirect(url_for('login'))
-
-@app.route('/login/profile', methods=['POST'])
-def upload_files():
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
-    file = request.files['file']
-    if file.filename == '':
-        flash('No image selected for uploading')
-        return redirect(request.url)
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        #print('upload_image filename: ' + filename)
-        flash('Image successfully uploaded and displayed below')
-        return render_template('profile.html', filename=filename)
-    else:
-        flash('Allowed image types are - png, jpg, jpeg, gif')
-        return redirect(request.url)
-    
-@app.route('/display/<filename>')
-def display_image(filename):
-    #print('display_image filename: ' + filename)
-    return redirect(url_for('static', filename='uploads/' + filename), code=301)
-
 
 #Add personnel via utilization of session objects
 @app.route('/login/addpersonnel', methods=['GET', 'POST'])
@@ -128,21 +107,20 @@ def addpersonnel():
         if request.method == 'POST':
             playerdetails = request.form
             coachid = playerdetails['coachid']
+            username = request.form['username']
+            password = request.form['password']
+            email    = request.form['email']
             coach_name = playerdetails['name']
             coach_number = playerdetails['phone_number']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Coach(coach_id,coach_name,phone_number) VALUES(%s,%s,%s)",(coachid,coach_name,coach_number))
+            cur.execute("INSERT INTO Users(user_id,phone_number,coach_name,username,email,password) VALUES(%s,%s,%s,%s,%s,%s)",(coachid,coach_number,coach_name,username,password,email))
             mysql.connection.commit()
             cur.close
             return 'success'
         return render_template('personnel.html')
 
     return redirect(url_for('login'))
-
-        
-
     
-
 @app.route('/login/addpersonnel/player', methods=['GET', 'POST'])
 def addplayer():
     if 'loggedin' in session:
@@ -167,12 +145,11 @@ def addplayer():
 #Unit page
 @app.route('/login/unit', methods=['GET', 'POST'])
 def unit():
-   
      if 'loggedin' in session:
         cur = mysql.connection.cursor()
         coach = mysql.connection.cursor()
-        coach.execute('SELECT * FROM Coach')
-        coachList = coach.fetchall()
+        coach.execute('SELECT * FROM Users')
+        usersList = coach.fetchall()
         cur = mysql.connection.cursor()
         play = mysql.connection.cursor()
         cur.execute('SELECT * FROM Unit')
@@ -185,11 +162,11 @@ def unit():
             unit_number = unitdetails['id']
             coach_id = unitdetails['coach_name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Unit(unit_id,unit_name,coach_id) VALUES(%s,%s,%s)",(unit_number,unit_name,coach_id))
+            cur.execute("INSERT INTO Unit(unit_id,unit_name,user_id) VALUES(%s,%s,%s)",(unit_number,unit_name,coach_id))
             mysql.connection.commit()
             cur.close
             return 'success'
-        return render_template('units.html',coachList=coachList,athleteList=athleteList,unitList=unitList)
+        return render_template('units.html',usersList=usersList,athleteList=athleteList,unitList=unitList)
 
      return redirect(url_for('login'))
 
@@ -244,11 +221,11 @@ def addsession():
         cur = mysql.connection.cursor()
         ses = mysql.connection.cursor()
         dr = mysql.connection.cursor()
-        coach.execute('SELECT * FROM Coach')
+        coach.execute('SELECT * FROM Users')
         cur.execute('SELECT * FROM Unit')
         ses.execute('SELECT * FROM Session')
         dr.execute('SELECT * FROM Drill')
-        coachList = coach.fetchall()
+        usersList = coach.fetchall()
         unitList = cur.fetchall()
         sessionList = ses.fetchall()
         drillList = dr.fetchall() 
@@ -259,11 +236,11 @@ def addsession():
             duration = sessiondetails['duration']
             coach_name = sessiondetails['coach_name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Session(session_id,duration,coach_id,session_name) VALUES(%s,%s,%s,%s)",(sessionid,duration,coach_name,sessionname))
+            cur.execute("INSERT INTO Session(session_id,duration,user_id,session_name) VALUES(%s,%s,%s,%s)",(sessionid,duration,coach_name,sessionname))
             mysql.connection.commit()
             cur.close
             return 'success'
-        return render_template('session.html',coachList=coachList, unitList=unitList, sessionList=sessionList,drillList=drillList)
+        return render_template('session.html',usersList=usersList, unitList=unitList, sessionList=sessionList,drillList=drillList)
     return redirect(url_for('login'))
 
 #Session Window
@@ -282,8 +259,7 @@ def addelement():
     return redirect(url_for('login'))
 
 
-
-  
+            
                       
 
    

@@ -24,8 +24,8 @@
                 <div class="inputBox">
                     <span>Choose Coach</span><br>
                     <SELECT name="coach_name" class="select">
-                        {% for c in coachList %}
-                            <OPTION value={{c[0]}}>{{c[2]}}</OPTION>
+                        {% for i in usersList %}
+                            <OPTION value={{i[0]}}>{{i[2]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>

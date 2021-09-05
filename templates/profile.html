@@ -3,39 +3,30 @@
 {% block content %}
 <section class="profile">
     <div class="profileBox">
-        {% if filename %}
-  <div class="imgBox">
-      <img src="{{ url_for('display_image', filename=filename) }}">
-  </div>
-{% endif %}
         <div class="formBox">
+            <form action="/login/profile" method="POST">
+                <br>
+                <br>
              <div class="inputBox">
                  <span>Username</span>
-                 <input type="text" name="username" placeholder="">
-             </div>
+                 <input type="text" name="username" value="{{account['username']}}">
+             </div><br>
              <div class="inputBox">
                  <span>Password</span>
-                 <input type="password" name="password" placeholder="">
-             </div>
+                 <input type="password" name="password" value="{{account['password']}}">
+             </div><br>
              <div class="inputBox">
                  <span>Email</span>
-                 <input type="email" name="email" placeholder="">
-             </div>
+                 <input type="email" name="email" value="{{account['email']}}">
+             </div><br>
              <div class="inputBox">
                 <span>Coach Name</span>
-                <input type="text" name="coach-name">
-            </div>
+                <input type="text" name="coach-name" value="{{account['coach_name']}}">
+            </div><br>
             <div class="inputBox">
                 <span>Phone Number</span>
-                <input type="phone-number" name="phone-number">
-            </div>
-            <div class="inputBox upload">
-                <span>Upload Picture</span>
-                <form method="POST" action="/login/profile" enctype="multipart/form-data">
-                    <input type="file" name="file">
-                    <input type="submit" value="Upload">
-                  </form>
-            </div>
+                <input type="phone-number" name="phone-number" value="{{account['phone_number']}}">
+            </div><br>
              <div class="inputBox">
                  <input type="submit" value="Update">
              </div>
