@@ -1,24 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, \
-    send_from_directory
-from PIL import Image
-import PIL
-import glob
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
-from werkzeug.utils import secure_filename 
-import os
 import MySQLdb.cursors
 
 UPLOAD_FOLDER = 'static/uploads/'
  
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
- 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
- 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-     
+
 # Change this to your secret key (can be anything, it's for extra protection)
 app.secret_key = 'bacon'
 
@@ -59,7 +46,7 @@ def login():
             session['id'] = account['user_id']
             session['email'] = account['email']
             # Redirect to home page
-            return redirect(url_for('addpersonnel'))
+            return redirect(url_for('profile'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
@@ -121,7 +108,7 @@ def addpersonnel():
 
     return redirect(url_for('login'))
     
-@app.route('/login/addpersonnel/player', methods=['GET', 'POST'])
+@app.route('/login/addpersonnel/athletes', methods=['GET', 'POST'])
 def addplayer():
     if 'loggedin' in session:
         if request.method == 'POST':
@@ -136,10 +123,57 @@ def addplayer():
             cur.execute("INSERT INTO Athlete(athlete_id,athlete_name,date_of_birth,position,preferred_foot,phone_number) VALUES(%s,%s,%s,%s,%s,%s)",(athleteid,athlete_name,date_birth,position,pref_foot,athlete_phone_number))
             mysql.connection.commit()
             cur.close
-            return 'success'
+            return redirect(url_for('list'))
         return render_template('personnel.html')
 
     return redirect(url_for('login'))
+
+@app.route('/login/addpersonnel/athletes/list', methods=['GET', 'POST'])
+def list():
+    cur = mysql.connection.cursor()
+ 
+    cur.execute('SELECT * FROM Athlete')
+    data = cur.fetchall()
+  
+    cur.close()
+    return render_template('player.html', athlete = data)
+
+@app.route('/edit/<id>', methods = ['POST', 'GET'])
+def get_athlete(id):
+
+    cur = mysql.connection.cursor()
+  
+    cur.execute('SELECT * FROM Athlete WHERE athlete_id = %s', (id,))
+    data = cur.fetchall()
+    cur.close()
+    print(data[0])
+    return render_template('edit.html', athlete = data[0])
+ 
+@app.route('/update/<id>', methods=['POST'])
+def update_athlete(id):
+    if request.method == 'POST':
+        playerdetails = request.form
+        athlete_name = playerdetails['athlete_name']
+        athlete_phone_number = playerdetails['athlete_phone_number']
+        date_birth = playerdetails['date_birth']
+        position = playerdetails['position']
+        pref_foot = playerdetails['pref_foot']
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Athlete SET athlete_name = %s, date_of_birth = %s,phone_number = %s, preferred_foot= %s, position = %s WHERE athlete_id = %s", (athlete_name, date_birth, athlete_phone_number,position,pref_foot, id))
+        flash('Athlete Updated Successfully')
+        mysql.connection.commit()
+        cur.close
+        return redirect(url_for('list'))
+ 
+@app.route('/delete/<string:id>', methods = ['POST','GET'])
+def delete_employee(id):
+    
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM Athlete WHERE athlete_id = %s', (id,))
+    mysql.connection.commit()
+    cur.close
+    flash('Athlete Removed Successfully')
+    return redirect(url_for('list'))
     
         
 #Unit page
@@ -195,22 +229,27 @@ def addplayertounit():
 @app.route('/login/drills', methods=['GET', 'POST'])
 def drills():
     if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT video FROM Drill')
+        video = cur.fetchall()
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM Category')
+        categoryList = cursor.fetchall()
         if request.method == 'POST':
             drilldetails = request.form
-            drill_name = drilldetails['name']
-            drill_number = drilldetails['id']
+            drill_id = drilldetails['drillid']
+            drill_name = drilldetails['drill_name']
             drill_category = drilldetails['category']
-            drill_category_number = drilldetails['id']
             drill_description = drilldetails['description']
-            drill_requirement = drilldetails['requirement']
-            drill_image = drilldetails['image']
+            drill_requirement = drilldetails['requirements']
             drill_video = drilldetails['video']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO drill(drill_name,drill_id,category,description,requirements,image,video,category_id) VALUES(%s,%s)",(drill_name,drill_number,drill_category,drill_category_number,drill_description,drill_requirement,drill_image,drill_video))
+            cur.execute("INSERT INTO Drill(drill_id,category_id,description,requirements,video,drill_name) VALUES(%s,%s,%s,%s,%s,%s)",
+            (drill_id,drill_category,drill_description,drill_requirement,drill_video,drill_name))
             mysql.connection.commit()
             cur.close
-            return 'success'
-        return render_template('drills.html')
+            return redirect(url_for('drills'))
+        return render_template('drills.html' ,video=video, categoryList=categoryList)
     return redirect(url_for('login'))
 
 #Session page
@@ -258,6 +297,25 @@ def addelement():
         return render_template('session.html')
     return redirect(url_for('login'))
 
+@app.route('/login/addtrainingdata', methods=['GET', 'POST'])
+def addtrainingdata():
+    if 'loggedin' in session:
+        ses = mysql.connection.cursor()
+        ses.execute('SELECT * FROM Session')
+        sessionList = ses.fetchall()
+        play = mysql.connection.cursor()
+        play.execute('SELECT * FROM Athlete')
+        athleteList = play.fetchall()
+        if request.method == 'POST':
+            
+            cur = mysql.connection.cursor()
+            cur.execute()
+            mysql.connection.commit()
+            cur.close
+            return 'success'
+        return render_template('trainingdata.html', sessionList=sessionList,athleteList=athleteList)
+    return redirect(url_for('login'))
+
 
             
                       
@@ -265,3 +323,4 @@ def addelement():
    
 if __name__ == '__main__':
     app.run(debug = True)
+

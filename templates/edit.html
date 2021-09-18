@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block title %}Update{% endblock %}
+{% block content %}
+<div class="update">
+    <div class="updatename">
+<form action= "/update/{{athlete[0]}}" method="POST">
+    <div class="inputBox">
+        <span>Athlete ID</span><br>
+        <input type="text" name="athleteid"  value="{{athlete[0]}}">
+    </div>
+    <br>
+    <div class="inputBox">
+        <span>Name</span><br>
+        <input type="text" name="athlete_name" value="{{athlete[5]}}">
+    </div>
+    <br>
+    <div class="inputBox">
+        <span>Phone Number</span><br>
+        <input type="text" name="athlete_phone_number" value="{{athlete[1]}}">
+    </div>
+    <br>
+    <div class="inputBox">
+        <span>Date of Birth</span><br>
+        <input type="date" name="date_birth" value="{{athlete[2]}}">
+    </div>
+    <br>
+    <div class="inputBox">
+        <span>Position</span><br>
+        <input type="text" name="position" value="{{athlete[3]}}">
+    </div>
+    <br>
+    <div class="inputBox">
+        <span>Preferred Foot</span><br>
+        <input type="text" name="pref_foot" value="{{athlete[4]}}"><br>
+    </div>
+    <br>
+    <div class="inputBox">
+        <input type="submit" value="Update Player">
+    </div>    
+ </form>
+    </div>
+ </div>
+{% endblock content %} 

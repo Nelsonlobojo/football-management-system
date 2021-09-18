@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+{% block title %}Athletes{% endblock %}
+{% block content %}
+<div class="table"> 
+<table class="content-table">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Phone Number</td>
+        <td>Date of Birth</td>
+        <td>Position</td>
+        <td>Preferred Foot</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in athlete %}
+      <tr>
+<td>{{data[0]}}</td>
+        <td>{{data[5]}}</td>
+        <td>{{data[1]}}</td>
+        <td>{{data[2]}}</td>
+        <td>{{data[3]}}</td>
+        <td>{{data[4]}}</td>
+        <td width="130">
+          <a href="/edit/{{data[0]}}" >Edit</a>
+          <a href="/delete/{{data[0]}}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% endblock content %} 

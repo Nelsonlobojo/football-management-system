@@ -3,73 +3,60 @@
 {% block content %}
 <div class="drill">
     <h1>Drills</h1>
-    <div class="drills split left">
-        <div class="drill-name">
-            <form action= "/login/drills" method="POST">
-                <div class="inputBox">
-                    <span>Drill Name</span><br>
-                    <input type="text" name="drill_name">
-                </div>
-                <br>
-                <div class="inputBox">
-                    <span>Choose Category</span><br>
-                    <SELECT name="category_name" class="select">
-                        {% for i in usersList %}
-                            <OPTION value={{i[0]}}>{{i[2]}}</OPTION>
-                        {% endfor %}
-                    </SELECT>
-                </div>
-                <br>
-                <div class="inputBox">
-                    <input type="submit" value="Create Drill">
-                </div>
-                <br>
-                <div class="inputBox">
-                    <a href="#">Modify Drill</a>
-                </div>
-             </form>
-        </div>
-    </div>
-    <div class="drills split right">
-        <div class="drill-name">
-            <form action= "/login/drills" method="POST">
-             <div class="inputBox">
-                <textarea rows="15" cols="40" id="description" name="description" minlength="10" maxlength="1000">
-                    Your description goes here..
-                </textarea>
-                </div>
-                <br>
-                <br>
-                <div class="inputBox">
-                <textarea rows="14" cols="40" id="requirements" name="requirements" minlength="10" maxlength="1000">
-                    Your requirements go here..
-                </textarea>
-                </div>
-            </form>
-        </div>
-    </div>  
-    <div class="drills split right media">
-        <div class="drill-name">
-            <form action= "/login/drills" method="POST">  
-                <div class="inputBox">
-                     <img src="{{ url_for('static', filename = 'images/Drills.jpg')}}" alt=""><br>
-                     <span>Upload Picture</span>
-                     <input type="file" name="file">
-                     <input type="submit" value="Upload">
-                </div>
-                <br>
-                <div class="inputBox">
-                    <iframe width="300" height="200"
-                     src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
+    <form action= "/login/drills" method="POST">
+     <div class="drills split left">
+         <div class="drill-name">
+                    <div class="inputBox">
+                        <span>Coach ID</span><br>
+                        <input type="text" name="drillid" placeholder="Written as D01">
+                    </div>
+                     <br>
+                    <div class="inputBox">
+                        <span>Drill Name</span><br>
+                        <input type="text" name="drill_name">
+                    </div>
                     <br>
-                    <span>Add Youtube Video</span><br>
-                    <input type="text" name="drill_name">
-                    <input type="submit" value="Add Video">
-                </div>    
-             </form>
+                    <div class="inputBox">
+                        <span>Choose Category</span><br>
+                        <SELECT name="category" class="select">
+                            {% for i in categoryList %}
+                                <OPTION value={{i[0]}}>{{i[2]}}</OPTION>
+                            {% endfor %}
+                        </SELECT>
+                     </div>
+                    <br>
+            </div>
         </div>
-    </div>
+        <div class="drills split right">
+            <div class="drill-name">
+                <div class="inputBox">
+                    <textarea rows="15" cols="40" name="description" minlength="10" maxlength="1000" placeholder="Your description goes here..."></textarea>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="inputBox">
+                        <textarea rows="14" cols="40" id="requirements" name="requirements" minlength="10" maxlength="1000" placeholder="Your requirements go here..."></textarea>
+                    </div>
+            </div>
+        </div>  
+        <div class="drills split right media">
+            <div class="drill-name">
+                    <div class="inputBox">
+                        <iframe width="300" height="200"
+                        src="{{video}}">
+                        </iframe>
+                        <br>
+                        <span>Add Youtube Video</span><br>
+                        <input type="text" name="video">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="inputBox">
+                        <input type="submit" value="Create Drill">
+                    </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock content %} 

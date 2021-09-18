@@ -301,10 +301,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     border-radius: 30px;
 
 }
-.unit-name .inputBox .checkbox {
-    color: black;
-    font-weight: bold;
-}
+
 .unit-name.select option{
     background: white;
 }
@@ -439,7 +436,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     width: 100%;
     height: 637px;
     background-color: var(--container-bg-color);
-    /*overflow-y: hidden;*/
+    overflow-y: hidden;
     background: url('/static/images/clock.jpg') center center no-repeat;
     background-size: cover;
 }
@@ -447,7 +444,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 .drill .split {
     position: absolute;
     height: 700px;
-    /*overflow: hidden;*/
+    overflow: hidden;
     
 }
 
@@ -524,4 +521,151 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     text-decoration: none;
 }
 
+/* Styling training data page */
+.data {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 637px;
+    background: url('/static/images/profile.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.data .form {
+    display: table;
+}
+
+.data .form .inputBox .row {
+    display: table-row;
+}
+
+.data .form .inputBox.row span {
+    display: table-cell;
+}
+
+.data .form .inputBox .row input{
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+    display: table-cell;
+}
+
+.data .select {
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+
+}
+
+.data .select option{
+    background: white;
+}
+
+/* Styling the tables */
+.table {
+    display: block;
+    position: relative;
+    left: 20%;
+    top: 20%;
+}
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 70%;
+    height: 70px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.content-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th, .content-table tr {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd
+
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+    
+}
+
+
+
+.update {
+    position: relative;
+    width: 100%;
+    height: 637px;
+    background-color: var(--container-bg-color);
+    overflow-y: hidden;
+    background: url('/static/images/teams.jpg') center center no-repeat;
+    background-size: cover;
+
+}
+
+.update .inputBox input {
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+}
+
+.update .updatename {
+    display: block;
+    position: absolute;
+    left: 20%;
+    top: 7%;
+    height: 300px;
+    width: 500px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.update .inputBox input[type="submit"] {
+    background: green;
+    color: white;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
 

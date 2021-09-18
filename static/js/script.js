@@ -26,21 +26,10 @@ document.getElementById('4').onclick = function changeContent() {
 }
 }
 
-/*const hamburger = document.querySelector('#hamburger');
-const header = document.querySelector('header')
-const overlay = document.querySelector('.overlay');
-hamburger.addEventListener('click', function(){
-
-    if(header.classList.contains('menu')){ // Close hamburger menu
-        header.classList.remove('menu')
-        overlay.classList.remove('fade-in');
-        overlay.classList.add('fade-out');
-    }
-    else { // Open hamburger menu
-        header.classList.add('menu')
-        overlay.classList.add('fade-in');
-        overlay.classList.remove('fade-out');
-    }
-
-});*/
+function ShowHideDiv() {
+    var ddlPassport = document.getElementById("purpose");
+    var dvPassport = document.getElementById("business");
+    dvPassport.style.display = ddlPassport.value == "T" ? "block" : "none";
+}
+ 
 

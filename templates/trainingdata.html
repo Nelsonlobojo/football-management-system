@@ -1,0 +1,221 @@
+{% extends "index.html" %}
+{% block title %}Training Data{% endblock %}
+{% block content %}
+<div class="data">
+<form action="/login/addtrainingdata" method="POST" class="form">
+<div class="inputBox">
+    <span>Choose Session</span>
+    <SELECT name="session" class="select">
+        {% for s in sessionList %}
+            <OPTION value={{s[0]}}>{{s[3]}}</OPTION>
+        {% endfor %}
+    </SELECT>
+</div>
+<br>
+<div class="inputBox">
+    <span>Add Athletes</span>
+    <SELECT name="athlete" class="select">
+        {% for a in athleteList %}
+            <OPTION value={{a[0]}}>{{a[5]}}</OPTION>
+        {% endfor %}
+    </SELECT>
+</div>
+<br>
+<div class="inputBox">
+    <span>Choose Category</span>
+    <select id="purpose" onchange = "ShowHideDiv()">
+        <option value="T">Technical</option>
+        <option value="P">Physical</option>
+        <option value="M">Mental</option>
+    </select>
+ </div>
+ <br> <!--Physical-->
+ <div class="inputBox" id="physical" style="display: none" >
+    <div class="row">
+    <span>Acceleration</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Agility</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Balance</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+ <div class="row">
+    <span>Jumping</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Natural Fitness</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Pace</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Stamina</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Strength</span>
+    <input type="text" name="drill_name">
+    </div>
+</div>
+ <!--Technical-->
+<div class="inputBox" id="technical" >
+    <div class="row">
+    <span>Corners</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Crossing</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Dribbling</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Finishing</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>First Touch</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Free Kicks</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Heading</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Long Shots</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Long Throws</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Marking</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Passing</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Penalty</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Tackling</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Technique</span>
+    <input type="text" name="drill_name">
+    </div>
+</div>
+ <!--Mental-->
+<div class="inputBox" id="mental" style="display: none">
+    <div class="row">
+    <span>Aggression</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Anticipation</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Bravery</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Composure</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Concentration</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Creativity</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Decisions</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Determination</span>
+    <input type="text" name="drill_name">
+</div>
+<br>
+<div class="row">
+    <span>Flair</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Influence</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Off the Ball</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Positioning</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Teamwork</span>
+    <input type="text" name="drill_name">
+    </div>
+<br>
+<div class="row">
+    <span>Work Rate</span>
+    <input type="text" name="drill_name">
+</div>
+</div>
+</form>
+</div>
+
+{% endblock content %} 
