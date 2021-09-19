@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+{% block title %}Coaches{% endblock %}
+{% block content %}
+<div class="table"> 
+<table class="content-table">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Email</td>
+        <td>Name</td>
+        <td>Phone Number</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in coach %}
+      <tr>
+<td>{{data[0]}}</td>
+        <td>{{data[3]}}</td>
+        <td>{{data[5]}}</td>
+        <td>{{data[4]}}</td>
+        <td>{{data[2]}}</td>
+        <td>{{data[1]}}</td>
+        <td width="130">
+          <a href="/delete/{{data[0]}}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="inputBox">
+    <li><a class="link" href="{{ url_for('addpersonnel') }}">Go back</a></li>
+</div> 
+  </div>
+  {% endblock content %} 

@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block title %}Units{% endblock %}
+{% block content %}
+<div class="table"> 
+<table class="content-table">
+    <thead>
+      <tr>
+        <td> Unit ID</td>
+        <td>Unit Name</td>
+        <td>Athlete Name</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in player %}
+      <tr>
+<td>{{data[0]}}</td>
+        <td>{{data[1]}}</td>
+        <td>{{data[4]}}</td>
+        <td width="130">
+            <a href="/login/unit/player/list/delete/{{data[2]}}">Remove</a>
+          </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="inputBox">
+    <li><a class="link" href="{{ url_for('unit') }}">Go back</a></li>
+</div> 
+  </div>
+  {% endblock content %} 

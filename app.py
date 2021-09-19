@@ -63,7 +63,9 @@ def logout():
    
    # Redirect to login page
    return redirect(url_for('login'))
-#this will be the home page, only accessible for loggedin users
+
+
+#this will be the home page, only accessible for loggedin users and are able to edit their information
 
 @app.route('/login/profile' ,methods=['POST','GET'])
 def profile():
@@ -100,14 +102,40 @@ def addpersonnel():
             coach_name = playerdetails['name']
             coach_number = playerdetails['phone_number']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Users(user_id,phone_number,coach_name,username,email,password) VALUES(%s,%s,%s,%s,%s,%s)",(coachid,coach_number,coach_name,username,password,email))
+            cur.execute("INSERT INTO Users(user_id,phone_number,coach_name,username,email,password) VALUES(%s,%s,%s,%s,%s,%s)",(coachid,coach_number,coach_name,username,email,password))
             mysql.connection.commit()
             cur.close
-            return 'success'
+            return redirect(url_for('userlist'))
         return render_template('personnel.html')
 
     return redirect(url_for('login'))
+
+#Get list of the various users and their information
+
+@app.route('/login/addpersonnel/list', methods=['GET', 'POST'])
+def userlist():
+    cur = mysql.connection.cursor()
+ 
+    cur.execute('SELECT * FROM Users')
+    data = cur.fetchall()
+  
+    cur.close()
+    return render_template('coach.html', coach = data)
+
+
+#Delete various users and their information
+@app.route('/delete/<string:id>', methods = ['POST','GET'])
+def delete_user(id):
     
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM Users WHERE user_id = %s', (id,))
+    mysql.connection.commit()
+    cur.close
+    flash('Coach Removed Successfully')
+    return redirect(url_for('userlist'))
+
+
+#Add users of the various athletes and their information
 @app.route('/login/addpersonnel/athletes', methods=['GET', 'POST'])
 def addplayer():
     if 'loggedin' in session:
@@ -120,7 +148,7 @@ def addplayer():
             position = playerdetails['position']
             pref_foot = playerdetails['pref_foot']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Athlete(athlete_id,athlete_name,date_of_birth,position,preferred_foot,phone_number) VALUES(%s,%s,%s,%s,%s,%s)",(athleteid,athlete_name,date_birth,position,pref_foot,athlete_phone_number))
+            cur.execute("INSERT INTO Athlete(athlete_id,phone_number,date_of_birth,position,preferred_foot,athlete_name) VALUES(%s,%s,%s,%s,%s,%s)",(athleteid,athlete_phone_number,date_birth,position,pref_foot,athlete_name))
             mysql.connection.commit()
             cur.close
             return redirect(url_for('list'))
@@ -128,6 +156,7 @@ def addplayer():
 
     return redirect(url_for('login'))
 
+#Get list of the various athletes and their information
 @app.route('/login/addpersonnel/athletes/list', methods=['GET', 'POST'])
 def list():
     cur = mysql.connection.cursor()
@@ -136,8 +165,10 @@ def list():
     data = cur.fetchall()
   
     cur.close()
-    return render_template('player.html', athlete = data)
+    return render_template('athlete.html', athlete = data)
 
+
+#Edit list of the various athletes and their information
 @app.route('/edit/<id>', methods = ['POST', 'GET'])
 def get_athlete(id):
 
@@ -164,9 +195,11 @@ def update_athlete(id):
         mysql.connection.commit()
         cur.close
         return redirect(url_for('list'))
- 
+
+    
+ #Delete various athletes and their information
 @app.route('/delete/<string:id>', methods = ['POST','GET'])
-def delete_employee(id):
+def delete_athlete(id):
     
     cur = mysql.connection.cursor()
     cur.execute('DELETE FROM Athlete WHERE athlete_id = %s', (id,))
@@ -196,16 +229,39 @@ def unit():
             unit_number = unitdetails['id']
             coach_id = unitdetails['coach_name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Unit(unit_id,unit_name,user_id) VALUES(%s,%s,%s)",(unit_number,unit_name,coach_id))
+            cur.execute("INSERT INTO Unit(unit_name,unit_id,user_id) VALUES(%s,%s,%s)",(unit_name,unit_number,coach_id))
             mysql.connection.commit()
             cur.close
-            return 'success'
+            return redirect(url_for('unitlist'))
         return render_template('units.html',usersList=usersList,athleteList=athleteList,unitList=unitList)
 
      return redirect(url_for('login'))
 
 
-#Add Players
+#Get list of the various units
+@app.route('/login/unit/list', methods=['GET', 'POST'])
+def unitlist():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT Unit.user_id, Unit.unit_id,Unit.unit_name, Users.coach_name from Unit JOIN Users ON Unit.user_id=Users.user_id;")
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('unitlist.html', unit = data)
+
+ 
+#Delete various athletes and their information
+@app.route('/login/unit/list/delete/<string:id>', methods = ['POST','GET'])
+def delete_unit(id):
+    
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM Unit WHERE unit_id = %s', (id,))
+    mysql.connection.commit()
+    cursor.close
+    flash('Unit Removed Successfully')
+    return redirect(url_for('unitlist'))
+
+
+
+#Add Players to the Units
 
 @app.route('/login/unit/player', methods=['GET', 'POST'])
 def addplayertounit():
@@ -218,12 +274,29 @@ def addplayertounit():
             cur.execute("INSERT INTO UnitMembers(athlete_id,unit_id) VALUES(%s,%s)", (athlete,unit_list))
             mysql.connection.commit()
             cur.close
-            return 'success'
+            return redirect(url_for('playerlist'))
         return render_template('units.html')
 
      return redirect(url_for('login'))
 
+#Delete Players from the Units
+@app.route('/login/unit/player/list', methods=['GET', 'POST'])
+def playerlist():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT Unit.unit_id, Unit.unit_name, UnitMembers.member_id, UnitMembers.athlete_id, Athlete.athlete_name from Unit JOIN UnitMembers ON Unit.unit_id=UnitMembers.unit_id JOIN Athlete ON UnitMembers.athlete_id=Athlete.athlete_id ;")
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('playerlist.html', player = data)
 
+@app.route('/login/unit/player/list/delete/<string:id>', methods = ['POST','GET'])
+def delete_player(id):
+    
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM UnitMembers WHERE member_id = %s', (id,))
+    mysql.connection.commit()
+    cursor.close
+    flash('Player Removed Successfully')
+    return redirect(url_for('playerlist'))
 
 #Drills page
 @app.route('/login/drills', methods=['GET', 'POST'])
