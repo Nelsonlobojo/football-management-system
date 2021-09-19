@@ -43,7 +43,7 @@
                     <span>Choose Session</span><br>
                     <SELECT name="session" class="select">
                         {% for s in sessionList %}
-                            <OPTION value={{s[0]}}>{{s[3]}}</OPTION>
+                            <OPTION value={{s[1]}}>{{s[0]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>
@@ -52,7 +52,7 @@
                     <span>Add Units</span><br>
                     <SELECT name="unit" class="select">
                         {% for u in unitList %}
-                            <OPTION value={{u[0]}}>{{u[2]}}</OPTION>
+                            <OPTION value={{u[1]}}>{{u[0]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>
@@ -61,7 +61,7 @@
                     <span>Add Drills</span><br>
                     <SELECT name="drill" class="select">
                         {% for d in drillList %}
-                            <OPTION value={{d[0]}}>{{u[2]}}</OPTION>
+                            <OPTION value={{d[0]}}>{{d[4]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>

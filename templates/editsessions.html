@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block title %}Update{% endblock %}
+{% block content %}
+<div class="update">
+    <div class="updatename">
+<form action= "/login/session/list/update/{{session[2]}}" method="POST">
+    <div class="inputBox">
+        <span>Session Name</span><br>
+        <input type="text" name="sessionname" value="{{session[1]}}">
+    </div>
+    <br>
+    <div class="inputBox">
+        <span>Session Duration</span><br>
+        <input type="number" name="duration" value="{{session[0]}}"><br>
+    </div>
+    <br>
+    <div class="inputBox">
+        <input type="submit" value="Update Session">
+    </div>
+ </form>
+    </div>
+ </div>
+{% endblock content %} 

@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block title %}Units{% endblock %}
+{% block content %}
+<div class="table"> 
+<table class="content-table">
+    <thead>
+      <tr>
+        <td> Session ID</td>
+        <td> Session Name</td>
+        <td> Duration</td>
+        <td>Coach Name</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in session %}
+      <tr>
+<td>{{data[0]}}</td>
+        <td>{{data[1]}}</td>
+        <td>{{data[2]}}</td>
+        <td>{{data[3]}}</td>
+        <td width="130">
+            <a href="/login/session/list/edit/{{data[0]}}" >Edit</a>
+            <a href="/login/session/list/delete/{{data[0]}}">Delete</a>
+          </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="inputBox">
+    <li><a class="link" href="{{ url_for('addsession') }}">Go back</a></li>
+</div> 
+  </div>
+  {% endblock content %} 

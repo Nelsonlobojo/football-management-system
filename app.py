@@ -348,20 +348,65 @@ def addsession():
             duration = sessiondetails['duration']
             coach_name = sessiondetails['coach_name']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Session(session_id,duration,user_id,session_name) VALUES(%s,%s,%s,%s)",(sessionid,duration,coach_name,sessionname))
+            cur.execute("INSERT INTO Session(duration,session_name,session_id,user_id) VALUES(%s,%s,%s,%s)",(duration,sessionname,sessionid,coach_name))
             mysql.connection.commit()
             cur.close
-            return 'success'
+            return redirect(url_for('sessionlist'))
         return render_template('session.html',usersList=usersList, unitList=unitList, sessionList=sessionList,drillList=drillList)
     return redirect(url_for('login'))
+
+
+# Session list
+@app.route('/login/session/list', methods=['GET', 'POST'])
+def sessionlist():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT Session.session_id, Session.session_name, Session.duration, Users.coach_name from Session JOIN Users ON Session.user_id=Users.user_id;")
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('sessionlist.html', session = data)
+
+# Edit and update Session
+@app.route('/login/session/list/edit/<id>', methods = ['POST', 'GET'])
+def get_session(id):
+
+    cur = mysql.connection.cursor()
+  
+    cur.execute('SELECT * FROM Session WHERE session_id = %s', (id,))
+    data = cur.fetchall()
+    cur.close()
+    print(data[0])
+    return render_template('editsessions.html', session = data[0])
+ 
+@app.route('/login/session/list/update/<id>', methods=['POST'])
+def update_session(id):
+     if request.method == 'POST':
+        sessiondetails= request.form
+        sessionname= sessiondetails['sessionname']
+        duration = sessiondetails['duration']
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Session SET duration = %s,session_name = %s WHERE session_id = %s", (duration, sessionname, id))
+        flash('Session Updated Successfully')
+        mysql.connection.commit()
+        cur.close
+        return redirect(url_for('sessionlist'))
+
+    
+ #Delete sessions and their information
+@app.route('/login/session/list/delete/<string:id>', methods = ['POST','GET'])
+def delete_session(id):
+    
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM Session WHERE session_id = %s', (id,))
+    mysql.connection.commit()
+    cur.close
+    flash('Session Removed Successfully')
+    return redirect(url_for('sessionlist'))
 
 #Session Window
 @app.route('/login/session/elements', methods=['GET', 'POST'])
 def addelement():
     if 'loggedin' in session:
-
         if request.method == 'POST':
-            
             cur = mysql.connection.cursor()
             cur.execute()
             mysql.connection.commit()
