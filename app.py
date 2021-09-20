@@ -425,12 +425,71 @@ def addtrainingdata():
         play.execute('SELECT * FROM Athlete')
         athleteList = play.fetchall()
         if request.method == 'POST':
-            
-            cur = mysql.connection.cursor()
-            cur.execute()
-            mysql.connection.commit()
-            cur.close
-            return 'success'
+            purpose = request.form['purpose']
+            if purpose == 'P':
+                session_list = request.form['session']
+                athlete_id = request.form['athlete']
+                acccelerate = request.form['acceleration']
+                agility = request.form['agility']
+                balance = request.form['balance']
+                jumping = request.form['jumping']
+                fitness = request.form['fitness']
+                pace = request.form['pace']
+                stamina = request.form['stamina']
+                strength = request.form['strength']
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO Physical(athlete_id,session_id,acceleration,agility,balance,jumping,natural_fitness,pace,stamina,strength) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (athlete_id,session_list,acccelerate,agility,balance,jumping,fitness,pace,stamina,strength))
+                mysql.connection.commit()
+                cur.close
+                return redirect(url_for('addtrainingdata'))
+            elif purpose == 'T':
+                session_list = request.form['session']
+                athlete_id = request.form['athlete']
+                corners = request.form['corner']
+                crossing = request.form['crossing']
+                dribbling = request.form['dribbling']
+                finishing = request.form['finishing']
+                firsttouch = request.form['firsttouch']
+                freekicks = request.form['freekicks']
+                heading = request.form['heading']
+                longshots = request.form['longshots']
+                longthrows = request.form['longthrows']
+                marking = request.form['marking']
+                passing = request.form['passing']
+                penalty = request.form['penalty']
+                tackling = request.form['tackling']
+                technique = request.form['technique']
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO Physical(athlete_id,session_id,corners,crossing,dribbling,finishing,first_touch,free_kicks,heading,long_shots,long_throws,marking,passing,penalty,tackling,technique) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (athlete_id,session_list,corners,crossing,dribbling,finishing,firsttouch,freekicks,heading,longshots,longthrows,marking,passing,penalty,tackling,technique))
+                mysql.connection.commit()
+                cur.close
+                return redirect(url_for('addtrainingdata'))
+            elif purpose == 'M':
+                session_list = request.form['session']
+                athlete_id = request.form['athlete']
+                aggression = request.form['aggression']
+                anticipation = request.form['anticipation']
+                bravery = request.form['bravery']
+                composure = request.form['composure']
+                concentration = request.form['concentration']
+                creativity = request.form['creativity']
+                decisions = request.form['decisions']
+                determination = request.form['determination']
+                flair = request.form['flair']
+                influence = request.form['influence']
+                offtheball = request.form['offtheball']
+                positioning = request.form['positioning']
+                teamwork = request.form['teamwork']
+                workrate = request.form['workrate']
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO Mental(athlete_id,session_id,aggression,anticipation,bravery,composure,concentration,creativity,decisions,determination,flair,influence,off_the_ball,positioning,teamwork,work_rate) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (athlete_id,session_list,aggression,anticipation,bravery,composure,concentration,creativity,decisions,determination,flair,influence,offtheball,positioning,teamwork,workrate))
+                mysql.connection.commit()
+                cur.close
+                return redirect(url_for('addtrainingdata'))
+
         return render_template('trainingdata.html', sessionList=sessionList,athleteList=athleteList)
     return redirect(url_for('login'))
 

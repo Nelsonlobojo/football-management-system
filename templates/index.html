@@ -30,5 +30,18 @@
     
 </div>
 <script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+<script type="text/javascript">
+   function ShowHideDiv() {
+    var purpose = document.getElementById("purpose");
+    var physical = document.getElementById("physical");
+    var mental = document.getElementById("mental");
+    var technical = document.getElementById("technical");
+    physical.style.display = purpose.value == "P" ? "block" : "none";
+    mental.style.display = purpose.value == "M" ? "block" : "none";
+    technical.style.display = purpose.value == "T" ? "block" : "none";
+}
+</script>
 </body>
 </html>
+
+

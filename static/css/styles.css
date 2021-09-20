@@ -533,39 +533,57 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     background-size: cover;
 }
 
-.data .form {
-    display: table;
+.data .form .inputBox .row span {
+    padding: 2px 2px;
+    float:left;
+    width:35%;
+    text-align:right;
+    font-size: 20px;
 }
-
-.data .form .inputBox .row {
-    display: table-row;
-}
-
-.data .form .inputBox.row span {
-    display: table-cell;
+.data .form .inputBox  span {
+    padding: 2px 2px;
+    float:left;
+    width:45%;
+    text-align:right;
+    font-size: 20px;
 }
 
 .data .form .inputBox .row input{
+    padding: 2px 2px;
     width: 50%;
-    padding: 10px 20px;
     outline: none;
     font-weight: 400;
     border: 1px solid #607d8b;
-    font-size: 16px;
+    font-size: 20px;
     letter-spacing: 1px;
     color: #607d8b;
     background: white;
     border-radius: 30px;
-    display: table-cell;
+    float:left;
+    width:55%;
 }
-
-.data .select {
+.data .form .inputBox .select option{
+    padding: 2px 2px;
     width: 50%;
-    padding: 10px 20px;
     outline: none;
     font-weight: 400;
     border: 1px solid #607d8b;
-    font-size: 16px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    background: white;
+    border-radius: 30px;
+    float:left;
+    width:55%;
+}
+
+.data .select {
+    padding: 2px 2px;
+    width: 50%;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 20px;
     letter-spacing: 1px;
     color: #607d8b;
     background: white;
@@ -574,7 +592,30 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 }
 
 .data .select option{
+    padding: 2px 2px;
     background: white;
+    font-size: 20px;
+}
+
+.data .select span{
+    padding: 2px 2px;
+    font-size: 20px;
+}
+.data .inputBox input[type="submit"]  {
+    padding: 2px 2px;
+    width: 50%;
+    padding: 10px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: white;
+    background: green;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    float:right;
 }
 
 /* Styling the tables */
