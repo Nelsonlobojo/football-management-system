@@ -357,8 +357,9 @@ def addsession():
             sessionname= sessiondetails['sessionname']
             duration = sessiondetails['duration']
             coach_name = sessiondetails['coach_name']
+            session_date = sessiondetails['session_date']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Session(duration,session_name,session_id,user_id) VALUES(%s,%s,%s,%s)",(duration,sessionname,sessionid,coach_name))
+            cur.execute("INSERT INTO Session(duration,session_name,session_id,user_id,session_date) VALUES(%s,%s,%s,%s,%s)",(duration,sessionname,sessionid,coach_name,session_date))
             mysql.connection.commit()
             cur.close
             return redirect(url_for('sessionlist'))
@@ -396,8 +397,9 @@ def update_session(id):
             sessiondetails= request.form
             sessionname= sessiondetails['sessionname']
             duration = sessiondetails['duration']
+            session_date = sessiondetails['session_date']
             cur = mysql.connection.cursor()
-            cur.execute("UPDATE Session SET duration = %s,session_name = %s WHERE session_id = %s", (duration, sessionname, id))
+            cur.execute("UPDATE Session SET duration = %s,session_name = %s, session_date=%s WHERE session_id = %s", (duration, sessionname,session_date, id))
             flash('Session Updated Successfully')
             mysql.connection.commit()
             cur.close
@@ -567,6 +569,12 @@ def delete_drill(id):
         return redirect(url_for('collection'))
     return redirect(url_for('login'))
 
+@app.route('/login/calendar', methods=['GET', 'POST'])
+def calendar():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM Session")
+        calendar = cur.fetchall()  
+        return render_template('calendar.html', calendar = calendar)
 
    
 if __name__ == '__main__':

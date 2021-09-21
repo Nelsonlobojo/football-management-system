@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block title %}Calendar{% endblock %}
+{% block content %}
+<div class="calendar">
+<div class="container">
+    <div id="calendar"></div>
+   </div>
+</div>
+   <script>
+    $(document).ready(function() {
+   var calendar = $('#calendar').fullCalendar({
+    editable:true,
+    header:{
+     left:'prev,next today',
+     center:'title',
+     right:'month,agendaWeek,agendaDay'
+    },
+    events: [{% for row in calendar %}{ id : '{{row[2]}}', title : '{{row[1]}}', start : '{{row[4]}}',  }, {% endfor %}],
+
+
+    });
+    });
+    
+</script>
+{% endblock content %} 

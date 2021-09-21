@@ -728,3 +728,27 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     background: white;
 }
 
+.calendar {
+    position: relative;
+    width: 100%;
+    height: 637px;
+    overflow-y: hidden;
+    
+}
+
+.calendar .container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#calendar
+{
+    overflow: hidden;
+    width: 700px;
+    height: 600px;
+    
+}
+
