@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %}Athletes{% endblock %}
+{% block title %}Collection{% endblock %}
 {% block content %}
 <div class="table"> 
 <table class="content-table">
@@ -18,7 +18,7 @@
         <td width="130">
           <a href="/login/collection/view/{{data[0]}}" >View</a>
           <a href="/login/collection/edit/{{data[0]}}" >Edit</a>
-          <a href="/delete/{{data[0]}}">Delete</a>
+          <a href="/login/collection/delete/{{data[0]}}">Delete</a>
         </td>
       </tr>
       {% endfor %}

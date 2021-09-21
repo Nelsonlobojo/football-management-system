@@ -114,25 +114,26 @@ def addpersonnel():
 
 @app.route('/login/addpersonnel/list', methods=['GET', 'POST'])
 def userlist():
-    cur = mysql.connection.cursor()
- 
-    cur.execute('SELECT * FROM Users')
-    data = cur.fetchall()
-  
-    cur.close()
-    return render_template('coach.html', coach = data)
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM Users')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('coach.html', coach = data)
+    return redirect(url_for('login'))
 
 
 #Delete various users and their information
 @app.route('/delete/<string:id>', methods = ['POST','GET'])
 def delete_user(id):
-    
+  if 'loggedin' in session:  
     cur = mysql.connection.cursor()
     cur.execute('DELETE FROM Users WHERE user_id = %s', (id,))
     mysql.connection.commit()
     cur.close
     flash('Coach Removed Successfully')
     return redirect(url_for('userlist'))
+  return redirect(url_for('login'))
 
 
 #Add users of the various athletes and their information
@@ -159,54 +160,57 @@ def addplayer():
 #Get list of the various athletes and their information
 @app.route('/login/addpersonnel/athletes/list', methods=['GET', 'POST'])
 def list():
-    cur = mysql.connection.cursor()
- 
-    cur.execute('SELECT * FROM Athlete')
-    data = cur.fetchall()
-  
-    cur.close()
-    return render_template('athlete.html', athlete = data)
-
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM Athlete')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('athlete.html', athlete = data)
+    return redirect(url_for('login'))
 
 #Edit list of the various athletes and their information
 @app.route('/edit/<id>', methods = ['POST', 'GET'])
 def get_athlete(id):
-
-    cur = mysql.connection.cursor()
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
   
-    cur.execute('SELECT * FROM Athlete WHERE athlete_id = %s', (id,))
-    data = cur.fetchall()
-    cur.close()
-    print(data[0])
-    return render_template('edit.html', athlete = data[0])
+        cur.execute('SELECT * FROM Athlete WHERE athlete_id = %s', (id,))
+        data = cur.fetchall()
+        cur.close()
+        print(data[0])
+        return render_template('edit.html', athlete = data[0])
+    return redirect(url_for('login'))
  
 @app.route('/update/<id>', methods=['POST'])
 def update_athlete(id):
-    if request.method == 'POST':
-        playerdetails = request.form
-        athlete_name = playerdetails['athlete_name']
-        athlete_phone_number = playerdetails['athlete_phone_number']
-        date_birth = playerdetails['date_birth']
-        position = playerdetails['position']
-        pref_foot = playerdetails['pref_foot']
-        cur = mysql.connection.cursor()
-        cur.execute("UPDATE Athlete SET athlete_name = %s, date_of_birth = %s,phone_number = %s, preferred_foot= %s, position = %s WHERE athlete_id = %s", (athlete_name, date_birth, athlete_phone_number,position,pref_foot, id))
-        flash('Athlete Updated Successfully')
-        mysql.connection.commit()
-        cur.close
-        return redirect(url_for('list'))
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            playerdetails = request.form
+            athlete_name = playerdetails['athlete_name']
+            athlete_phone_number = playerdetails['athlete_phone_number']
+            date_birth = playerdetails['date_birth']
+            position = playerdetails['position']
+            pref_foot = playerdetails['pref_foot']
+            cur = mysql.connection.cursor()
+            cur.execute("UPDATE Athlete SET athlete_name = %s, date_of_birth = %s,phone_number = %s, preferred_foot= %s, position = %s WHERE athlete_id = %s", (athlete_name, date_birth, athlete_phone_number,position,pref_foot, id))
+            flash('Athlete Updated Successfully')
+            mysql.connection.commit()
+            cur.close
+            return redirect(url_for('list'))
+    return redirect(url_for('login'))
 
     
  #Delete various athletes and their information
 @app.route('/delete/<string:id>', methods = ['POST','GET'])
 def delete_athlete(id):
-    
-    cur = mysql.connection.cursor()
-    cur.execute('DELETE FROM Athlete WHERE athlete_id = %s', (id,))
-    mysql.connection.commit()
-    cur.close
-    flash('Athlete Removed Successfully')
-    return redirect(url_for('list'))
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('DELETE FROM Athlete WHERE athlete_id = %s', (id,))
+        mysql.connection.commit()
+        cur.close
+        flash('Athlete Removed Successfully')
+        return redirect(url_for('list'))
+    return redirect(url_for('login'))
     
         
 #Unit page
@@ -241,23 +245,26 @@ def unit():
 #Get list of the various units
 @app.route('/login/unit/list', methods=['GET', 'POST'])
 def unitlist():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT Unit.user_id, Unit.unit_id,Unit.unit_name, Users.coach_name from Unit JOIN Users ON Unit.user_id=Users.user_id;")
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('unitlist.html', unit = data)
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT Unit.user_id, Unit.unit_id,Unit.unit_name, Users.coach_name from Unit JOIN Users ON Unit.user_id=Users.user_id;")
+        data = cursor.fetchall()
+        cursor.close()
+        return render_template('unitlist.html', unit = data)
+    return redirect(url_for('login'))
 
  
 #Delete various athletes and their information
 @app.route('/login/unit/list/delete/<string:id>', methods = ['POST','GET'])
 def delete_unit(id):
-    
-    cursor = mysql.connection.cursor()
-    cursor.execute('DELETE FROM Unit WHERE unit_id = %s', (id,))
-    mysql.connection.commit()
-    cursor.close
-    flash('Unit Removed Successfully')
-    return redirect(url_for('unitlist'))
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM Unit WHERE unit_id = %s', (id,))
+        mysql.connection.commit()
+        cursor.close
+        flash('Unit Removed Successfully')
+        return redirect(url_for('unitlist'))
+    return redirect(url_for('login'))
 
 
 
@@ -282,21 +289,24 @@ def addplayertounit():
 #Delete Players from the Units
 @app.route('/login/unit/player/list', methods=['GET', 'POST'])
 def playerlist():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT Unit.unit_id, Unit.unit_name, UnitMembers.member_id, UnitMembers.athlete_id, Athlete.athlete_name from Unit JOIN UnitMembers ON Unit.unit_id=UnitMembers.unit_id JOIN Athlete ON UnitMembers.athlete_id=Athlete.athlete_id ;")
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('playerlist.html', player = data)
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT Unit.unit_id, Unit.unit_name, UnitMembers.member_id, UnitMembers.athlete_id, Athlete.athlete_name from Unit JOIN UnitMembers ON Unit.unit_id=UnitMembers.unit_id JOIN Athlete ON UnitMembers.athlete_id=Athlete.athlete_id ;")
+        data = cursor.fetchall()
+        cursor.close()
+        return render_template('playerlist.html', player = data)
+    return redirect(url_for('login'))
 
 @app.route('/login/unit/player/list/delete/<string:id>', methods = ['POST','GET'])
 def delete_player(id):
-    
-    cursor = mysql.connection.cursor()
-    cursor.execute('DELETE FROM UnitMembers WHERE member_id = %s', (id,))
-    mysql.connection.commit()
-    cursor.close
-    flash('Player Removed Successfully')
-    return redirect(url_for('playerlist'))
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM UnitMembers WHERE member_id = %s', (id,))
+        mysql.connection.commit()
+        cursor.close
+        flash('Player Removed Successfully')
+        return redirect(url_for('playerlist'))
+    return redirect(url_for('login'))
 
 #Drills page
 @app.route('/login/drills', methods=['GET', 'POST'])
@@ -359,48 +369,53 @@ def addsession():
 # Session list
 @app.route('/login/session/list', methods=['GET', 'POST'])
 def sessionlist():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT Session.session_id, Session.session_name, Session.duration, Users.coach_name from Session JOIN Users ON Session.user_id=Users.user_id;")
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('sessionlist.html', session = data)
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT Session.session_id, Session.session_name, Session.duration, Users.coach_name from Session JOIN Users ON Session.user_id=Users.user_id;")
+        data = cursor.fetchall()
+        cursor.close()
+        return render_template('sessionlist.html', session = data)
+    return redirect(url_for('login'))
 
 # Edit and update Session
 @app.route('/login/session/list/edit/<id>', methods = ['POST', 'GET'])
 def get_session(id):
-
-    cur = mysql.connection.cursor()
-  
-    cur.execute('SELECT * FROM Session WHERE session_id = %s', (id,))
-    data = cur.fetchall()
-    cur.close()
-    print(data[0])
-    return render_template('editsessions.html', session = data[0])
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM Session WHERE session_id = %s', (id,))
+        data = cur.fetchall()
+        cur.close()
+        print(data[0])
+        return render_template('editsessions.html', session = data[0])
+    return redirect(url_for('login'))
  
 @app.route('/login/session/list/update/<id>', methods=['POST'])
 def update_session(id):
-     if request.method == 'POST':
-        sessiondetails= request.form
-        sessionname= sessiondetails['sessionname']
-        duration = sessiondetails['duration']
-        cur = mysql.connection.cursor()
-        cur.execute("UPDATE Session SET duration = %s,session_name = %s WHERE session_id = %s", (duration, sessionname, id))
-        flash('Session Updated Successfully')
-        mysql.connection.commit()
-        cur.close
-        return redirect(url_for('sessionlist'))
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            sessiondetails= request.form
+            sessionname= sessiondetails['sessionname']
+            duration = sessiondetails['duration']
+            cur = mysql.connection.cursor()
+            cur.execute("UPDATE Session SET duration = %s,session_name = %s WHERE session_id = %s", (duration, sessionname, id))
+            flash('Session Updated Successfully')
+            mysql.connection.commit()
+            cur.close
+            return redirect(url_for('sessionlist'))
+    return redirect(url_for('login'))
 
     
  #Delete sessions and their information
 @app.route('/login/session/list/delete/<string:id>', methods = ['POST','GET'])
 def delete_session(id):
-    
-    cur = mysql.connection.cursor()
-    cur.execute('DELETE FROM Session WHERE session_id = %s', (id,))
-    mysql.connection.commit()
-    cur.close
-    flash('Session Removed Successfully')
-    return redirect(url_for('sessionlist'))
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('DELETE FROM Session WHERE session_id = %s', (id,))
+        mysql.connection.commit()
+        cur.close
+        flash('Session Removed Successfully')
+        return redirect(url_for('sessionlist'))
+    return redirect(url_for('login'))
 
 #Session Window
 @app.route('/login/session/elements', methods=['GET', 'POST'])
@@ -495,46 +510,62 @@ def addtrainingdata():
 
 @app.route('/login/collection', methods=['GET', 'POST'])
 def collection():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM Drill")
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('drilllist.html', drill = data)        
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM Drill")
+        data = cursor.fetchall()
+        cursor.close()
+        return render_template('drilllist.html', drill = data) 
+    return redirect(url_for('login'))       
 
 @app.route('/login/collection/view/<id>', methods=['GET', 'POST'])
 def viewcollection(id):
-    cur = mysql.connection.cursor()
-  
-    cur.execute('SELECT * FROM Drill WHERE drill_id = %s', (id,))
-    data = cur.fetchall()
-    cur.close()
-    print(data[0])
-    return render_template('viewdrill.html', drill = data)           
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor() 
+        cur.execute('SELECT * FROM Drill WHERE drill_id = %s', (id,))
+        data = cur.fetchall()
+        cur.close()
+        print(data[0])
+        return render_template('viewdrill.html', drill = data)  
+    return redirect(url_for('login'))         
 
 @app.route('/login/collection/edit/<id>', methods = ['POST', 'GET'])
 def edit_drill(id):
-
-    cur = mysql.connection.cursor()
-  
-    cur.execute('SELECT * FROM Drill WHERE drill_id = %s', (id,))
-    data = cur.fetchall()
-    cur.close()
-    print(data[0])
-    return render_template('editdrills.html', drill = data[0])     
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM Drill WHERE drill_id = %s', (id,))
+        data = cur.fetchall()
+        cur.close()
+        print(data[0])
+        return render_template('editdrills.html', drill = data[0])
+    return redirect(url_for('login'))     
 
 @app.route('/login/collection/update/<id>', methods=['POST'])
 def update_drill(id):
+    if 'loggedin' in session:
      if request.method == 'POST':
         drilldetails = request.form
         drill_description = drilldetails['description']
         drill_requirement = drilldetails['requirements']
         drill_video = drilldetails['video']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE Session SET duration = %s,session_name = %s WHERE session_id = %s", ( id))
+        cur.execute("UPDATE Drill SET description = %s,requirements = %s,video = %s  WHERE drill_id = %s", (drill_description,drill_requirement,drill_video, id))
         flash('Drill Updated Successfully')
         mysql.connection.commit()
         cur.close
         return redirect(url_for('collection'))
+    return redirect(url_for('login'))
+
+@app.route('/login/collection/delete/<string:id>', methods = ['POST','GET'])
+def delete_drill(id):
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('DELETE FROM Drill WHERE drill_id = %s', (id,))
+        mysql.connection.commit()
+        cur.close
+        flash('Drill Removed Successfully')
+        return redirect(url_for('collection'))
+    return redirect(url_for('login'))
 
 
    
