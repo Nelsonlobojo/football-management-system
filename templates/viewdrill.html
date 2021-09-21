@@ -3,59 +3,64 @@
 {% block content %}
 <div class="drill">
     <h1>Drills</h1>
-    <form action= "/login/drills" method="POST">
+    {% for data in drill %}
      <div class="drills split left">
          <div class="drill-name">
                     <div class="inputBox">
                         <span>Coach ID</span><br>
-                        <input type="text" name="drillid" placeholder="Written as D01">
+                        <input type="text" name="drillid" value="{{data[0]}}">
                     </div>
                      <br>
                     <div class="inputBox">
                         <span>Drill Name</span><br>
-                        <input type="text" name="drill_name">
+                        <input type="text" name="drill_name" value="{{data[1]}}">
                     </div>
                     <br>
                     <div class="inputBox">
                         <span>Choose Category</span><br>
-                        <SELECT name="category" class="select">
-                            {% for i in categoryList %}
-                                <OPTION value={{i[0]}}>{{i[2]}}</OPTION>
-                            {% endfor %}
-                        </SELECT>
+                        <input type="text" name="drill_name" value="{{data[5]}}">
                      </div>
+                    <br>
+                    <div class="inputBox">
+                        <li><a class="link" href="{{ url_for('collection') }}">Go back</a></li>
+                    </div> 
                     <br>
             </div>
         </div>
         <div class="drills split right">
             <div class="drill-name">
                 <div class="inputBox">
-                    <textarea rows="15" cols="40" name="description" minlength="10" maxlength="1000" placeholder="Your description goes here..."></textarea>
+                    <textarea type="text" rows="15" cols="40" name="description" minlength="10" maxlength="1000" readonly>
+                        
+                        {{data[2]}}
+
+                    </textarea>
                     </div>
                     <br>
                     <br>
                     <div class="inputBox">
-                        <textarea rows="14" cols="40" id="requirements" name="requirements" minlength="10" maxlength="1000" placeholder="Your requirements go here..."></textarea>
+                        <textarea type="text" rows="15" cols="40" name="description" minlength="10" maxlength="1000" readonly>
+                           
+                            {{data[3]}}
+
+                        </textarea>
                     </div>
             </div>
         </div>  
         <div class="drills split right media">
             <div class="drill-name">
                     <div class="inputBox">
-                        <span>Add Youtube Video</span><br>
-                        <input type="text" name="video">
+                        <iframe width="300" height="200"
+                        src="{{data[4]}}">
+                        </iframe>
+                        <br>
                     </div>
                     <br>
                     <br>
-                    <div class="inputBox">
-                        <input type="submit" value="Create Drill">
-                    </div>
             </div>
+            
         </div>
-    </form>
+        {% endfor %}
 </div>
 
 {% endblock content %} 
-
-
-

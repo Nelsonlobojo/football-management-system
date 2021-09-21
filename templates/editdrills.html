@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+{% block title %}Drills{% endblock %}
+{% block content %}
+<div class="drill">
+    <h1>Drills</h1>
+    <form action= "/login/collection/update/{{drill[0]}}" method="POST">
+     <div class="drills split left">
+         <div class="drill-name">
+                    <div class="inputBox">
+                        <textarea rows="15" cols="40" name="description" minlength="10" maxlength="1000" placeholder="{{drill[2]}}"></textarea>
+                    </div>
+                     <br>
+                     <br>
+                    <div class="inputBox">
+                        <textarea rows="14" cols="40" id="requirements" name="requirements" minlength="10" maxlength="1000" placeholder="{{drill[3]}}"></textarea>
+                    </div>
+                    <br>
+                    <br>
+            </div>
+        </div>
+        <div class="drills split right">
+            <div class="drill-name">
+                <div class="inputBox">
+                    <span>Add Youtube Video</span><br>
+                        <input type="text" name="video" value="{{drill[4]}}">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="inputBox">
+                        <input type="submit" value="Update Drill">
+                    </div>
+            </div>
+        </div>  
+    </form>
+</div>
+
+{% endblock content %} 
+
+
+

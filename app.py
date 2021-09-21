@@ -317,8 +317,8 @@ def drills():
             drill_requirement = drilldetails['requirements']
             drill_video = drilldetails['video']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO Drill(drill_id,category_id,description,requirements,video,drill_name) VALUES(%s,%s,%s,%s,%s,%s)",
-            (drill_id,drill_category,drill_description,drill_requirement,drill_video,drill_name))
+            cur.execute("INSERT INTO Drill(drill_id,drill_name,category_id,description,requirements,video) VALUES(%s,%s,%s,%s,%s,%s)",
+            (drill_id,drill_name,drill_category,drill_description,drill_requirement,drill_video))
             mysql.connection.commit()
             cur.close
             return redirect(url_for('drills'))
@@ -493,9 +493,49 @@ def addtrainingdata():
         return render_template('trainingdata.html', sessionList=sessionList,athleteList=athleteList)
     return redirect(url_for('login'))
 
+@app.route('/login/collection', methods=['GET', 'POST'])
+def collection():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM Drill")
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('drilllist.html', drill = data)        
 
-            
-                      
+@app.route('/login/collection/view/<id>', methods=['GET', 'POST'])
+def viewcollection(id):
+    cur = mysql.connection.cursor()
+  
+    cur.execute('SELECT * FROM Drill WHERE drill_id = %s', (id,))
+    data = cur.fetchall()
+    cur.close()
+    print(data[0])
+    return render_template('viewdrill.html', drill = data)           
+
+@app.route('/login/collection/edit/<id>', methods = ['POST', 'GET'])
+def edit_drill(id):
+
+    cur = mysql.connection.cursor()
+  
+    cur.execute('SELECT * FROM Drill WHERE drill_id = %s', (id,))
+    data = cur.fetchall()
+    cur.close()
+    print(data[0])
+    return render_template('editdrills.html', drill = data[0])     
+
+@app.route('/login/collection/update/<id>', methods=['POST'])
+def update_drill(id):
+     if request.method == 'POST':
+        drilldetails = request.form
+        drill_description = drilldetails['description']
+        drill_requirement = drilldetails['requirements']
+        drill_video = drilldetails['video']
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Session SET duration = %s,session_name = %s WHERE session_id = %s", ( id))
+        flash('Drill Updated Successfully')
+        mysql.connection.commit()
+        cur.close
+        return redirect(url_for('collection'))
+
 
    
 if __name__ == '__main__':

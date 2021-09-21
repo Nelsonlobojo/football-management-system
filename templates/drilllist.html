@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+{% block title %}Athletes{% endblock %}
+{% block content %}
+<div class="table"> 
+<table class="content-table">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in drill %}
+      <tr>
+<td>{{data[0]}}</td>
+        <td>{{data[1]}}</td>
+        <td width="130">
+          <a href="/login/collection/view/{{data[0]}}" >View</a>
+          <a href="/login/collection/edit/{{data[0]}}" >Edit</a>
+          <a href="/delete/{{data[0]}}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% endblock content %} 
