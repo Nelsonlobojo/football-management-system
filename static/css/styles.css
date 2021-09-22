@@ -691,7 +691,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 .tables {
     display: block;
     position: relative;
-    left: 20%;
+    left: 15%;
     top: 20%;
 }
 
