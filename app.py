@@ -1,13 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
+import secrets
 
 UPLOAD_FOLDER = 'static/uploads/'
  
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
-app.secret_key = 'bacon'
+app.secret_key = secrets.token_bytes(16)
 
 
 # Enter your database connection details below
@@ -85,6 +86,7 @@ def profile():
             cur.execute("Update Users SET phone_number=%s,coach_name=%s,username=%s,email=%s,password=%s WHERE user_id=%s",(phonenumber,coachname,username,email,password,session['id']))
             mysql.connection.commit()
             cur.close
+            flash('User updated Successfully')
             return redirect(url_for('profile'))
         return render_template('profile.html',account=account)
     return redirect(url_for('login'))
@@ -105,6 +107,7 @@ def addpersonnel():
             cur.execute("INSERT INTO Users(user_id,phone_number,coach_name,username,email,password) VALUES(%s,%s,%s,%s,%s,%s)",(coachid,coach_number,coach_name,username,email,password))
             mysql.connection.commit()
             cur.close
+            flash('Coach added Successfully')
             return redirect(url_for('userlist'))
         return render_template('personnel.html')
 
@@ -152,6 +155,7 @@ def addplayer():
             cur.execute("INSERT INTO Athlete(athlete_id,phone_number,date_of_birth,position,preferred_foot,athlete_name) VALUES(%s,%s,%s,%s,%s,%s)",(athleteid,athlete_phone_number,date_birth,position,pref_foot,athlete_name))
             mysql.connection.commit()
             cur.close
+            flash('Athlete added Successfully')
             return redirect(url_for('list'))
         return render_template('personnel.html')
 
@@ -235,6 +239,7 @@ def unit():
             cur = mysql.connection.cursor()
             cur.execute("INSERT INTO Unit(unit_name,unit_id,user_id) VALUES(%s,%s,%s)",(unit_name,unit_number,coach_id))
             mysql.connection.commit()
+            flash('Unit added Successfully')
             cur.close
             return redirect(url_for('unitlist'))
         return render_template('units.html',usersList=usersList,athleteList=athleteList,unitList=unitList)
@@ -281,6 +286,7 @@ def addplayertounit():
             cur.execute("INSERT INTO UnitMembers(athlete_id,unit_id) VALUES(%s,%s)", (athlete,unit_list))
             mysql.connection.commit()
             cur.close
+            flash('Athlete added to unit successfully')
             return redirect(url_for('playerlist'))
         return render_template('units.html')
 
@@ -330,6 +336,7 @@ def drills():
             cur.execute("INSERT INTO Drill(drill_id,drill_name,category_id,description,requirements,video) VALUES(%s,%s,%s,%s,%s,%s)",
             (drill_id,drill_name,drill_category,drill_description,drill_requirement,drill_video))
             mysql.connection.commit()
+            flash('Drill added Successfully')
             cur.close
             return redirect(url_for('drills'))
         return render_template('drills.html' ,video=video, categoryList=categoryList)
@@ -362,6 +369,7 @@ def addsession():
             cur.execute("INSERT INTO Session(duration,session_name,session_id,user_id,session_date) VALUES(%s,%s,%s,%s,%s)",(duration,sessionname,sessionid,coach_name,session_date))
             mysql.connection.commit()
             cur.close
+            flash('Session added Successfully')
             return redirect(url_for('sessionlist'))
         return render_template('session.html',usersList=usersList, unitList=unitList, sessionList=sessionList,drillList=drillList)
     return redirect(url_for('login'))
@@ -428,7 +436,8 @@ def addelement():
             cur.execute()
             mysql.connection.commit()
             cur.close
-            return 'success'
+            flash('Elements added Successfully')
+            return redirect(url_for('sessionlist'))
         return render_template('session.html')
     return redirect(url_for('login'))
 
@@ -458,6 +467,7 @@ def addtrainingdata():
                 cur.execute("INSERT INTO Physical(athlete_id,session_id,acceleration,agility,balance,jumping,natural_fitness,pace,stamina,strength) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (athlete_id,session_list,acccelerate,agility,balance,jumping,fitness,pace,stamina,strength))
                 mysql.connection.commit()
+                flash('Data added Successfully')
                 cur.close
                 return redirect(url_for('addtrainingdata'))
             elif purpose == 'T':
@@ -478,9 +488,10 @@ def addtrainingdata():
                 tackling = request.form['tackling']
                 technique = request.form['technique']
                 cur = mysql.connection.cursor()
-                cur.execute("INSERT INTO Physical(athlete_id,session_id,corners,crossing,dribbling,finishing,first_touch,free_kicks,heading,long_shots,long_throws,marking,passing,penalty,tackling,technique) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                cur.execute("INSERT INTO Technical(athlete_id,session_id,corners,crossing,dribbling,finishing,first_touch,free_kicks,heading,long_shots,long_throws,marking,passing,penalty,tackling,technique) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (athlete_id,session_list,corners,crossing,dribbling,finishing,firsttouch,freekicks,heading,longshots,longthrows,marking,passing,penalty,tackling,technique))
                 mysql.connection.commit()
+                flash('Data added Successfully')
                 cur.close
                 return redirect(url_for('addtrainingdata'))
             elif purpose == 'M':
@@ -504,6 +515,7 @@ def addtrainingdata():
                 cur.execute("INSERT INTO Mental(athlete_id,session_id,aggression,anticipation,bravery,composure,concentration,creativity,decisions,determination,flair,influence,off_the_ball,positioning,teamwork,work_rate) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (athlete_id,session_list,aggression,anticipation,bravery,composure,concentration,creativity,decisions,determination,flair,influence,offtheball,positioning,teamwork,workrate))
                 mysql.connection.commit()
+                flash('Data added Successfully')
                 cur.close
                 return redirect(url_for('addtrainingdata'))
 
@@ -575,6 +587,34 @@ def calendar():
         cur.execute("SELECT * FROM Session")
         calendar = cur.fetchall()  
         return render_template('calendar.html', calendar = calendar)
+
+
+@app.route('/login/reports')
+def reports():
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM Athlete')
+        data = cur.fetchall()
+        cur.close()
+        return render_template('report.html', report = data)
+    return redirect(url_for('login'))  
+
+@app.route('/login/reports/view/<id>', methods=['GET', 'POST'])
+def viewreports(id):
+    if 'loggedin' in session:
+        cur = mysql.connection.cursor() 
+        cursor = mysql.connection.cursor()
+        cursor1= mysql.connection.cursor()
+        cur.execute('SELECT athlete_id,session_id,corners,crossing,dribbling,finishing,first_touch,free_kicks,heading,long_shots,long_throws,marking,passing,penalty,tackling,technique FROM Technical WHERE athlete_id = %s', (id,))
+        cursor.execute('SELECT athlete_id,session_id,acceleration,agility,balance,jumping,natural_fitness,pace,stamina,strength FROM Physical WHERE athlete_id=%s', (id,))
+        cursor1.execute('SELECT athlete_id,session_id,aggression,anticipation,bravery,composure,concentration,creativity,decisions,determination,flair,influence,off_the_ball,positioning,teamwork,work_rate FROM Mental WHERE athlete_id=%s', (id,))
+        data = cur.fetchall()
+        data1= cursor.fetchall()
+        data2= cursor1.fetchall()
+        cur.close()
+        print(data[0])
+        return render_template('reports.html', technical = data, physical=data1, mental=data2)  
+    return redirect(url_for('login'))           
 
    
 if __name__ == '__main__':

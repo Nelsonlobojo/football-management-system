@@ -1,6 +1,22 @@
 {% extends "index.html" %}
 {% block title %}Units{% endblock %}
 {% block content %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <label>
+        <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+        <div class="alert">
+            <div class="error">
+                <span class="alertClose">X</span>
+                <span class="alertText"> {{ message }}
+                    <br class="clear"/></span>
+            </div>
+        </div>
+      </label>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 <div class="table"> 
 <table class="content-table">
     <thead>

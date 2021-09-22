@@ -1,0 +1,151 @@
+{% extends "index.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <label>
+        <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+        <div class="alert">
+            <div class="error">
+                <span class="alertClose">X</span>
+                <span class="alertText"> {{ message }}
+                    <br class="clear"/></span>
+            </div>
+        </div>
+      </label>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+<div class="tables"> 
+<table class="content-table">
+<caption>Technical Table</caption>
+    <thead>
+      <tr>
+        <td>Athlete ID</td> 
+        <td>Session ID</td> 
+        <td>Corners</td>
+        <td>Crossing</td>
+        <td>Dribbling</td>
+        <td>Finishing</td>
+        <td>First Touch</td>
+        <td>Free Kicks</td>
+        <td>Heading</td>
+        <td>Long Shots</td>
+        <td>Long Throws</td>
+        <td>Marking</td>
+        <td>Passing</td>
+        <td>Penalties</td>
+        <td>Tackling</td>
+        <td>Technique</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in technical %}
+      <tr>
+<td>{{data[0]}}</td>
+        <td>{{data[1]}}</td>
+        <td>{{data[2]}}</td>
+        <td>{{data[3]}}</td>
+        <td>{{data[4]}}</td>
+        <td>{{data[5]}}</td>
+        <td>{{data[6]}}</td>
+        <td>{{data[7]}}</td>
+        <td>{{data[8]}}</td>
+        <td>{{data[9]}}</td>
+        <td>{{data[10]}}</td>
+        <td>{{data[11]}}</td>
+        <td>{{data[12]}}</td>
+        <td>{{data[13]}}</td>
+        <td>{{data[14]}}</td>
+        <td>{{data[15]}}</td>
+        <td>{{data[16]}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <table class="content-table">
+    <caption>Physical Table</caption>
+        <thead>
+          <tr>
+            <td>Athlete ID</td> 
+            <td>Session ID</td>      
+            <td>Acceleration</td>
+            <td>Agility</td>
+            <td>Balance</td>
+            <td>Finishing</td>
+            <td>Jumping</td>
+            <td>Natural Fitness</td>
+            <td>Pace</td>
+            <td>Stamina</td>
+            <td>Strength</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in physical %}
+          <tr>
+            <td>{{data[0]}}</td>
+            <td>{{data[1]}}</td>
+            <td>{{data[2]}}</td>
+            <td>{{data[3]}}</td>
+            <td>{{data[4]}}</td>
+            <td>{{data[5]}}</td>
+            <td>{{data[6]}}</td>
+            <td>{{data[7]}}</td>
+            <td>{{data[8]}}</td>
+            <td>{{data[9]}}</td>
+            <td>{{data[10]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <table class="content-table">
+        <caption>Mental Table</caption>
+            <thead>
+              <tr>
+                <td>Athlete ID</td> 
+                <td>Session ID</td>      
+                <td>Aggression</td>  
+                <td>Anticipation</td>
+                <td>Bravery</td>
+                <td>Composure</td>
+                <td>Concentration</td>
+                <td>Creativity</td>
+                <td>Decisions</td>
+                <td>Determination</td>
+                <td>Flair</td>
+                <td>Influence</td>
+                <td>Off the ball</td>
+                <td>Positioning</td>
+                <td>Teamwork</td>
+                <td>Work Rate</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for data in mental %}
+              <tr>
+                <td>{{data[0]}}</td>
+                <td>{{data[1]}}</td>
+                <td>{{data[2]}}</td>
+                <td>{{data[3]}}</td>
+                <td>{{data[4]}}</td>
+                <td>{{data[5]}}</td>
+                <td>{{data[6]}}</td>
+                <td>{{data[7]}}</td>
+                <td>{{data[8]}}</td>
+                <td>{{data[9]}}</td>
+                <td>{{data[10]}}</td>
+                <td>{{data[11]}}</td>
+                <td>{{data[12]}}</td>
+                <td>{{data[13]}}</td>
+                <td>{{data[14]}}</td>
+                <td>{{data[15]}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="inputBox">
+            <li><a class="link" href="{{ url_for('reports') }}">Go back</a></li>
+        </div> 
+  </div>
+  {% endblock content %} 

@@ -1,6 +1,22 @@
 {% extends "index.html" %}
 {% block title %}Session{% endblock %}
 {% block content %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <label>
+        <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+        <div class="alert">
+            <div class="error">
+                <span class="alertClose">X</span>
+                <span class="alertText"> {{ message }}
+                    <br class="clear"/></span>
+            </div>
+        </div>
+      </label>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 <div class="session">
     <div class="sessions split left">
         <h1>Session</h1>
@@ -66,7 +82,7 @@
                     <span>Add Drills</span><br>
                     <SELECT name="drill" class="select">
                         {% for d in drillList %}
-                            <OPTION value={{d[0]}}>{{d[4]}}</OPTION>
+                            <OPTION value={{d[0]}}>{{d[1]}}</OPTION>
                         {% endfor %}
                     </SELECT>
                 </div>

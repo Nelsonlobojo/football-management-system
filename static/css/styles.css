@@ -437,7 +437,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     height: 637px;
     background-color: var(--container-bg-color);
     overflow-y: hidden;
-    background: url('/static/images/clock.jpg') center center no-repeat;
+    background: url('/static/images/Drills.jpg') center center no-repeat;
     background-size: cover;
 }
 
@@ -529,7 +529,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     align-items: center;
     width:100%;
     height: 637px;
-    background: url('/static/images/profile.jpg') center center no-repeat;
+    background: url('/static/images/training.jpg') center center no-repeat;
     background-size: cover;
 }
 
@@ -620,12 +620,30 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 
 /* Styling the tables */
 .table {
-    display: block;
     position: relative;
-    left: 20%;
-    top: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 637px;
+    background: url('/static/images/football.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.table .inputBox a{
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: white;
+    background: green;
+    border-radius: 30px;
+    text-decoration: none;
 }
 .content-table {
+    border: 1px solid black;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
@@ -636,15 +654,22 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 
+.content-table td {
+    border: 1px solid black;
+    vertical-align: middle;
+    text-align: center;
+}
 .content-table thead tr {
     background-color: #009879;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
+    border: 1px solid black;
 }
 
 .content-table th, .content-table tr {
     padding: 12px 15px;
+    border: 1px solid black;
 }
 
 .content-table tbody tr {
@@ -655,11 +680,32 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 .content-table tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 
+
 }
 
 .content-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
     
+}
+
+.tables {
+    display: block;
+    position: relative;
+    left: 20%;
+    top: 20%;
+}
+
+.tables .inputBox a{
+    width: 50%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: white;
+    background: green;
+    border-radius: 30px;
+    text-decoration: none;
 }
 
 
@@ -737,3 +783,55 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     
 }
 
+caption {
+    font-size: 20px;
+    color: green;
+}
+
+
+.alert {
+    position: relative;
+    top: 10;
+    left: 0;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    line-height: 1.8;
+    border-radius: 5px;
+    cursor: hand;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: 400;
+  }
+  
+  .alertCheckbox {
+    display: none;
+  }
+  
+  :checked + .alert {
+    display: none;
+  }
+  
+  .alert .error .alertText {
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .alert .error .alertClose {
+    float: right;
+    padding-top: 5px;
+    font-size: 10px;
+  }
+  
+  .alert .error .clear {
+    clear: both;
+  }
+
+  .alert .error {
+    background-color: limegreen;
+    border: 1px solid #EDD;
+    color:black;
+  }
