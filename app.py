@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
+from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import secrets
-
-UPLOAD_FOLDER = 'static/uploads/'
+from functools import wraps
  
 app = Flask(__name__)
 
@@ -46,6 +45,7 @@ def login():
             session['loggedin'] = True
             session['id'] = account['user_id']
             session['email'] = account['email']
+            session['role'] = account['role']
             # Redirect to home page
             return redirect(url_for('profile'))
         else:
@@ -91,8 +91,18 @@ def profile():
         return render_template('profile.html',account=account)
     return redirect(url_for('login'))
 
+def admin_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if session['role']== "admin":
+            return f(*args, **kwargs)
+        else:
+            abort(401)
+    return wrap
+
 #Add personnel via utilization of session objects
 @app.route('/login/addpersonnel', methods=['GET', 'POST'])
+@admin_required
 def addpersonnel():
     if 'loggedin' in session:
         if request.method == 'POST':
@@ -116,6 +126,7 @@ def addpersonnel():
 #Get list of the various users and their information
 
 @app.route('/login/addpersonnel/list', methods=['GET', 'POST'])
+@admin_required
 def userlist():
     if 'loggedin' in session:
         cur = mysql.connection.cursor()
@@ -128,6 +139,7 @@ def userlist():
 
 #Delete various users and their information
 @app.route('/delete/<string:id>', methods = ['POST','GET'])
+@admin_required
 def delete_user(id):
   if 'loggedin' in session:  
     cur = mysql.connection.cursor()
@@ -141,6 +153,7 @@ def delete_user(id):
 
 #Add users of the various athletes and their information
 @app.route('/login/addpersonnel/athletes', methods=['GET', 'POST'])
+@admin_required
 def addplayer():
     if 'loggedin' in session:
         if request.method == 'POST':
@@ -163,6 +176,7 @@ def addplayer():
 
 #Get list of the various athletes and their information
 @app.route('/login/addpersonnel/athletes/list', methods=['GET', 'POST'])
+@admin_required
 def list():
     if 'loggedin' in session:
         cur = mysql.connection.cursor()
@@ -174,6 +188,7 @@ def list():
 
 #Edit list of the various athletes and their information
 @app.route('/edit/<id>', methods = ['POST', 'GET'])
+@admin_required
 def get_athlete(id):
     if 'loggedin' in session:
         cur = mysql.connection.cursor()
@@ -186,6 +201,7 @@ def get_athlete(id):
     return redirect(url_for('login'))
  
 @app.route('/update/<id>', methods=['POST'])
+@admin_required
 def update_athlete(id):
     if 'loggedin' in session:
         if request.method == 'POST':
@@ -206,6 +222,7 @@ def update_athlete(id):
     
  #Delete various athletes and their information
 @app.route('/delete/<string:id>', methods = ['POST','GET'])
+@admin_required
 def delete_athlete(id):
     if 'loggedin' in session:
         cur = mysql.connection.cursor()

@@ -641,6 +641,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     background: green;
     border-radius: 30px;
     text-decoration: none;
+    color: white;
 }
 .content-table {
     border: 1px solid black;
@@ -652,12 +653,14 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    color: white;
 }
 
 .content-table td {
     border: 1px solid black;
     vertical-align: middle;
     text-align: center;
+    color: white;
 }
 .content-table thead tr {
     background-color: #009879;
@@ -677,11 +680,6 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
 
 }
 
-.content-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-
-
-}
 
 .content-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
