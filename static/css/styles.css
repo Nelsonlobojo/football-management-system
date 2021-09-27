@@ -660,7 +660,7 @@ section .profileBox .formBox .inputBox input[type="submit"]:hover{
     border: 1px solid black;
     vertical-align: middle;
     text-align: center;
-    color: white;
+    color: grey
 }
 .content-table thead tr {
     background-color: #009879;
