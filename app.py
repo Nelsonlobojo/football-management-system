@@ -13,7 +13,7 @@ app.secret_key = secrets.token_bytes(16)
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'WaR$lanE90210!'
 app.config['MYSQL_DB'] = 'teams'
 
 # Intialize MySQL
